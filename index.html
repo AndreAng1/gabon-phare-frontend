@@ -476,7 +476,7 @@ async function fetchNews() {
     </div>`).join('');
 
   try {
-    const resp = await fetch('http://localhost:8000/news');
+    const resp = await fetch('https://capitalk241-backend.onrender.com/');
     if (!resp.ok) throw new Error('Erreur ' + resp.status);
     const json = await resp.json();
     allData.gabon         = json.articles.filter(a => a.source_type === 'gabon');
