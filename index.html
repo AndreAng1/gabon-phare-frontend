@@ -4,454 +4,473 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CapiTalk241 — L'essentiel du Gabon</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;0,900;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;0,900;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-/* ════════════════════════════
-   PALETTE GABON
-   Forêt équatoriale + or okoumé
-   + sable des plages de l'Estuaire
-════════════════════════════ */
 :root {
-  --foret:     #0e2218;
-  --foret2:    #163322;
-  --foret3:    #1f4530;
+  /* Drapeau gabonais */
+  --gab-vert:  #009A44;
+  --gab-jaune: #FCD116;
+  --gab-bleu:  #003893;
+
+  /* Palette éditoriale */
+  --foret:     #061a0e;
+  --foret2:    #0d2b18;
+  --foret3:    #174d2a;
   --or:        #c9963a;
   --or2:       #e8b84b;
-  --or-pale:   #f5dfa0;
-  --sable:     #f4ede0;
-  --sable2:    #ede3d0;
+  --or-pale:   #f5e4b0;
+  --sable:     #f5ede0;
+  --sable2:    #ece2ce;
   --ivoire:    #faf7f1;
-  --encre:     #1a1a1a;
-  --muted:     #7a8a7e;
-  --rouge:     #b33a1a;
-  --intl:      #1e3f6e;
-  --intl2:     #2d5c9e;
+  --encre:     #131a15;
+  --muted:     #6b7a6e;
+  --intl:      #0f2d5c;
+  --intl2:     #1e4f99;
   --intl-bg:   #eef4fc;
   --white:     #ffffff;
-  --radius:    8px;
+  --r:         8px;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { font-size:16px; scroll-behavior:smooth; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;scroll-behavior:smooth;}
 
 body {
   font-family:'DM Sans',sans-serif;
-  background: var(--sable);
-  color: var(--encre);
+  background:var(--sable);
+  color:var(--encre);
   min-height:100vh;
-  background-image:
-    radial-gradient(ellipse at 15% 0%,   rgba(201,150,58,0.07) 0%,transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(14,34,24,0.05)   0%,transparent 55%);
 }
 
-/* Barre de progression */
-#prog {
-  position:fixed; top:0; left:0; height:3px; width:0;
-  background:linear-gradient(to right, var(--foret3), var(--or), var(--or2));
-  z-index:9999; transition:width 0.4s ease;
-  border-radius:0 2px 2px 0; opacity:0;
+/* ── BARRE PROGRESSION ── */
+#prog{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(to right,var(--gab-vert),var(--gab-jaune),var(--gab-bleu));
+  z-index:9999;transition:width .4s ease;opacity:0;
 }
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    HEADER
-════════════════════════════ */
-.site-header {
+════════════════════════════════════ */
+.site-header{
   background:var(--foret);
-  border-bottom:4px solid var(--or);
-  position:sticky; top:0; z-index:200;
+  position:sticky;top:0;z-index:200;
 }
 
-.h-inner {
-  max-width:900px; margin:0 auto; padding:0 20px;
+/* Bande drapeau en haut */
+.flag-top{
+  height:6px;
+  background:linear-gradient(to right,
+    var(--gab-vert)  0%,   var(--gab-vert)  33.33%,
+    var(--gab-jaune) 33.33%,var(--gab-jaune) 66.66%,
+    var(--gab-bleu)  66.66%,var(--gab-bleu)  100%
+  );
 }
 
-.h-top {
-  display:flex; align-items:center;
-  justify-content:space-between;
-  padding:16px 0 12px; gap:12px;
+.h-inner{
+  max-width:920px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;
+  justify-content:space-between;gap:12px;
+  padding-top:14px;padding-bottom:12px;
 }
 
-/* Logo */
-.logo-wrap { display:flex; flex-direction:column; gap:3px; }
+/* Logo + perroquet */
+.logo-block{display:flex;align-items:center;gap:14px;}
 
-.logo {
+/* Perroquet gris du Gabon — SVG inline */
+.parrot-wrap{
+  width:46px;height:46px;flex-shrink:0;
+  background:rgba(201,150,58,0.08);
+  border-radius:50%;
+  border:1.5px solid rgba(201,150,58,0.2);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+.logo-text-block{display:flex;flex-direction:column;gap:2px;}
+
+.logo{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(26px,6vw,42px);
+  font-size:clamp(24px,5vw,40px);
   font-weight:900;
   color:var(--ivoire);
   letter-spacing:-1.5px;
   line-height:1;
 }
-.logo .acc { color:var(--or2); }
-.logo .n241 {
-  color:var(--or);
-  font-weight:500;
-  font-size:0.72em;
-  letter-spacing:0;
-}
+.logo .acc{color:var(--gab-jaune);}
+.logo .num{color:var(--or);font-weight:500;font-size:.7em;letter-spacing:0;}
 
-.logo-sub {
+.logo-sub{
   font-family:'DM Mono',monospace;
-  font-size:8px;
-  letter-spacing:3px;
+  font-size:8px;letter-spacing:2.5px;
   text-transform:uppercase;
-  color:rgba(201,150,58,0.55);
+  color:rgba(201,150,58,0.5);
 }
 
-/* Right side */
-.h-right {
-  display:flex; align-items:center;
-  gap:8px; flex-shrink:0;
+/* Right */
+.h-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+
+.date-lbl{
+  font-family:'DM Mono',monospace;font-size:9px;
+  color:rgba(255,255,255,0.28);letter-spacing:.8px;
+  text-transform:uppercase;display:none;
+}
+@media(min-width:520px){.date-lbl{display:block;}}
+
+.badges{display:flex;gap:5px;}
+.badge{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  padding:3px 9px;border-radius:20px;
+}
+.bg{background:rgba(201,150,58,.18);color:var(--or2);border:1px solid rgba(201,150,58,.22);}
+.bi{background:rgba(30,79,153,.2);color:#85b5f0;border:1px solid rgba(30,79,153,.25);}
+
+.btn-ref{
+  display:flex;align-items:center;gap:5px;padding:6px 13px;
+  background:rgba(201,150,58,.1);border:1px solid rgba(201,150,58,.2);
+  border-radius:20px;color:var(--or-pale);
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
+  cursor:pointer;transition:background .2s;white-space:nowrap;
+}
+.btn-ref:hover{background:rgba(201,150,58,.2);}
+.btn-ref:disabled{opacity:.4;cursor:not-allowed;}
+
+.spinner{
+  width:10px;height:10px;
+  border:1.5px solid rgba(201,150,58,.3);
+  border-top-color:var(--or);
+  border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ════════════════════════════════════
+   ONGLETS DE NAVIGATION — GRANDS
+════════════════════════════════════ */
+.nav{
+  background:var(--foret2);
+  border-bottom:1px solid rgba(255,255,255,.04);
 }
 
-.date-lbl {
-  font-family:'DM Mono',monospace;
-  font-size:9px;
-  color:rgba(255,255,255,0.3);
-  letter-spacing:1px;
-  text-transform:uppercase;
-  display:none;
+.nav-top{
+  max-width:920px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:stretch;gap:2px;
 }
-@media(min-width:540px){ .date-lbl { display:block; } }
 
-.badges { display:flex; gap:5px; }
-.badge {
-  font-family:'DM Mono',monospace;
-  font-size:10px; font-weight:500;
-  padding:3px 9px; border-radius:20px;
-}
-.bg  { background:rgba(201,150,58,0.2); color:var(--or2); border:1px solid rgba(201,150,58,0.25); }
-.bi  { background:rgba(45,92,158,0.2);  color:#7aacee;    border:1px solid rgba(45,92,158,0.25); }
-
-.btn-ref {
-  display:flex; align-items:center; gap:5px;
-  padding:6px 12px;
-  background:rgba(201,150,58,0.1);
-  border:1px solid rgba(201,150,58,0.22);
-  border-radius:20px;
-  color:var(--or-pale);
-  font-family:'DM Sans',sans-serif;
-  font-size:11px; font-weight:500;
+/* Onglets larges et bien visibles */
+.vtab{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;
+  padding:16px 10px;
+  font-size:clamp(12px,2.5vw,16px);
+  font-weight:700;
+  letter-spacing:.3px;
+  text-transform:none;
+  color:rgba(255,255,255,.35);
+  background:none;border:none;
+  border-bottom:4px solid transparent;
   cursor:pointer;
-  transition:background 0.2s;
+  transition:all .2s;
   white-space:nowrap;
 }
-.btn-ref:hover   { background:rgba(201,150,58,0.2); }
-.btn-ref:disabled{ opacity:0.4; cursor:not-allowed; }
-
-.spinner {
-  width:10px; height:10px;
-  border:1.5px solid rgba(201,150,58,0.3);
-  border-top-color:var(--or);
-  border-radius:50%;
-  animation:spin 0.7s linear infinite;
+.vtab:hover{
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.65);
 }
-@keyframes spin { to { transform:rotate(360deg); } }
+.vtab .tab-icon{font-size:1.2em;}
+.vtab .tab-lbl{font-weight:700;}
 
-/* Bande drapeau Gabon */
-.flag-strip {
-  height:5px;
-  background:linear-gradient(
-    to right,
-    var(--foret3) 0%,    var(--foret3) 33.33%,
-    var(--or)     33.33%,var(--or)     66.66%,
-    #2255cc       66.66%,#2255cc       100%
-  );
-  opacity:0.6;
+/* Onglet Gabon actif */
+.vtab.tg.on{
+  color:var(--gab-jaune);
+  border-bottom-color:var(--gab-vert);
+  background:rgba(0,154,68,.08);
 }
-
-/* ════════════════════════════
-   NAV TABS + CHIPS
-════════════════════════════ */
-.nav {
-  background:var(--foret2);
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  overflow-x:auto; scrollbar-width:none;
+/* Onglet International actif */
+.vtab.ti.on{
+  color:#85b5f0;
+  border-bottom-color:var(--gab-bleu);
+  background:rgba(0,56,147,.08);
 }
-.nav::-webkit-scrollbar { display:none; }
-
-.nav-inner {
-  max-width:900px; margin:0 auto; padding:0 20px;
-  display:flex; align-items:center;
-  gap:0; min-width:max-content;
+/* Onglet Tout actif */
+.vtab.ta.on{
+  color:#ddd;
+  border-bottom-color:#666;
+  background:rgba(255,255,255,.04);
 }
 
-.vtab {
-  padding:11px 16px;
-  font-size:11px; font-weight:600;
-  letter-spacing:0.8px; text-transform:uppercase;
-  color:rgba(255,255,255,0.32);
-  background:none; border:none;
-  border-bottom:3px solid transparent;
-  cursor:pointer; white-space:nowrap;
-  transition:all 0.2s;
+/* Indicateur actif sous les onglets */
+.nav-indicator{
+  height:3px;
+  background:linear-gradient(to right,var(--gab-vert),var(--gab-jaune),var(--gab-bleu));
+  opacity:.3;
 }
-.vtab:hover { color:rgba(255,255,255,0.55); }
-.vtab.ag.on { color:var(--or2);  border-bottom-color:var(--or); }
-.vtab.ai.on { color:#7aacee;     border-bottom-color:var(--intl2); }
-.vtab.aa.on { color:#bbb;        border-bottom-color:#555; }
 
-.ndiv { width:1px; height:18px; background:rgba(255,255,255,0.07); margin:0 4px; flex-shrink:0; }
-
-.chips-row {
-  display:flex; gap:5px; padding:6px 0;
-  overflow-x:auto; scrollbar-width:none;
+/* Chips de filtre source */
+.chips-bar{
+  background:rgba(0,0,0,.25);
+  border-bottom:1px solid rgba(255,255,255,.04);
 }
-.chips-row::-webkit-scrollbar { display:none; }
+.chips-inner{
+  max-width:920px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;gap:5px;
+  overflow-x:auto;scrollbar-width:none;
+  padding-top:7px;padding-bottom:7px;
+}
+.chips-inner::-webkit-scrollbar{display:none;}
 
-.chip {
+.chip{
   flex-shrink:0;
-  padding:4px 11px; border-radius:20px;
-  font-size:10px; font-weight:600;
+  padding:4px 12px;border-radius:20px;
+  font-size:10px;font-weight:600;
   cursor:pointer;
-  border:1px solid rgba(255,255,255,0.1);
-  color:rgba(255,255,255,0.32);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.32);
   background:transparent;
-  transition:all 0.15s; white-space:nowrap;
+  transition:all .15s;white-space:nowrap;
 }
-.chip:hover { border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.5); }
-.chip.cg.on { background:var(--or);   border-color:var(--or);   color:var(--foret); }
-.chip.ci.on { background:var(--intl2);border-color:var(--intl2);color:white; }
+.chip:hover{border-color:rgba(255,255,255,.22);color:rgba(255,255,255,.55);}
+.chip.cg.on{background:var(--gab-vert);border-color:var(--gab-vert);color:white;}
+.chip.ci.on{background:var(--intl2);border-color:var(--intl2);color:white;}
 
-/* ════════════════════════════
-   CONTENU
-════════════════════════════ */
-.main {
-  max-width:900px; margin:0 auto;
-  padding:28px 20px 80px;
+/* ════════════════════════════════════
+   CONTENU PRINCIPAL
+════════════════════════════════════ */
+.main{
+  max-width:920px;margin:0 auto;
+  padding:28px 20px 90px;
 }
 
-/* Section header */
-.sec-head {
-  display:flex; align-items:center;
-  gap:10px; margin-bottom:20px;
+/* En-tête de section */
+.sec-head{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;
 }
-.sdot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-.sdot.g { background:var(--or); }
-.sdot.i { background:var(--intl2); }
-.slbl {
-  font-family:'DM Mono',monospace;
-  font-size:10px; letter-spacing:2.5px;
-  text-transform:uppercase; color:var(--muted);
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sdot.g{background:var(--gab-vert);}
+.sdot.i{background:var(--intl2);}
+.slbl{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);
 }
-.srule { flex:1; height:1px; }
-.srule.g { background:linear-gradient(to right,rgba(201,150,58,0.3),transparent); }
-.srule.i { background:linear-gradient(to right,rgba(45,92,158,0.3),transparent); }
-.sn {
-  font-family:'DM Mono',monospace;
-  font-size:10px; padding:2px 8px; border-radius:10px;
-}
-.sn.g { background:rgba(201,150,58,0.1); color:var(--or); }
-.sn.i { background:rgba(45,92,158,0.1);  color:var(--intl2); }
+.srule{flex:1;height:1px;}
+.srule.g{background:linear-gradient(to right,rgba(0,154,68,.3),transparent);}
+.srule.i{background:linear-gradient(to right,rgba(30,79,153,.3),transparent);}
+.sn{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:10px;}
+.sn.g{background:rgba(0,154,68,.1);color:var(--gab-vert);}
+.sn.i{background:rgba(30,79,153,.1);color:var(--intl2);}
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    CARTE ARTICLE
-════════════════════════════ */
-.card {
+════════════════════════════════════ */
+.card{
   background:var(--white);
-  border-radius:var(--radius);
+  border-radius:var(--r);
   border:1px solid var(--sable2);
-  margin-bottom:16px; overflow:hidden;
-  animation:rise 0.4s ease both;
-  transition:box-shadow 0.25s, transform 0.25s;
+  margin-bottom:16px;overflow:hidden;
+  animation:rise .4s ease both;
+  transition:box-shadow .25s,transform .25s;
 }
-.card:hover {
-  box-shadow:0 8px 30px rgba(14,34,24,0.1);
+.card:hover{
+  box-shadow:0 8px 28px rgba(6,26,14,.1);
   transform:translateY(-2px);
 }
-.card.intl { border-color:#dce8f5; background:#fafcff; }
+.card.intl{border-color:#d8e7f7;background:#fafcff;}
 
-@keyframes rise {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
+@keyframes rise{
+  from{opacity:0;transform:translateY(16px);}
+  to  {opacity:1;transform:translateY(0);}
 }
 
-/* Bande couleur haut de carte */
-.cstripe { height:4px; }
-.cstripe.g { background:linear-gradient(to right,var(--foret3),var(--or)); }
-.cstripe.i { background:linear-gradient(to right,var(--intl),var(--intl2)); }
+/* Barre colorée haut de carte */
+.cbar{height:4px;}
+.cbar.g{
+  background:linear-gradient(to right,var(--gab-vert),var(--gab-jaune));
+}
+.cbar.i{
+  background:linear-gradient(to right,var(--intl),var(--intl2));
+}
 
 /* Méta */
-.cmeta {
-  display:flex; align-items:center;
-  justify-content:space-between;
-  padding:10px 16px 0;
+.cmeta{
+  display:flex;align-items:center;
+  justify-content:space-between;padding:10px 16px 0;
 }
-.csrc {
-  font-family:'DM Mono',monospace;
-  font-size:9px; letter-spacing:1.5px;
-  text-transform:uppercase; font-weight:500;
+.csrc{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:1.5px;text-transform:uppercase;font-weight:500;
 }
-.csrc.g { color:var(--foret3); }
-.csrc.i { color:var(--intl2); }
+.csrc.g{color:var(--foret3);}
+.csrc.i{color:var(--intl2);}
+.intl-tag{
+  background:var(--intl2);color:white;
+  font-size:8px;font-weight:700;
+  padding:1px 6px;border-radius:8px;
+  letter-spacing:.5px;margin-right:5px;
+}
+.ctime{font-family:'DM Mono',monospace;font-size:9px;color:#c8c8c8;}
 
-.intl-pill {
-  background:var(--intl2); color:white;
-  font-size:8px; font-weight:700;
-  padding:1px 6px; border-radius:8px;
-  letter-spacing:0.5px; margin-right:5px;
-}
-
-.ctime {
-  font-family:'DM Mono',monospace;
-  font-size:9px; color:#ccc;
-}
-
-/* Titre grand format éditorial */
-.ctitle {
+/* Titre éditorial */
+.ctitle{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(20px,3.5vw,26px);
-  font-weight:700;
-  line-height:1.25;
+  font-size:clamp(19px,3.2vw,25px);
+  font-weight:700;line-height:1.25;
   color:var(--foret);
   padding:10px 16px 0;
-  letter-spacing:-0.3px;
+  letter-spacing:-.3px;
 }
-.card.intl .ctitle { color:var(--intl); }
+.card.intl .ctitle{color:var(--intl);}
 
 /* Résumé */
-.csum {
+.csum{
   margin:10px 16px;
   padding:12px 14px;
   border-radius:6px;
   font-size:13.5px;
-  line-height:1.75;
+  line-height:1.8;
   color:#2a2a2a;
 }
-.csum.g { background:linear-gradient(135deg,#fdf9f0,#f9f3e4); border-left:3px solid var(--or); }
-.csum.i { background:linear-gradient(135deg,#f0f5fc,#e8f0fa); border-left:3px solid var(--intl2); color:#1e2d3d; }
-
-.csum-lbl {
-  display:flex; align-items:center; gap:5px;
-  font-family:'DM Mono',monospace;
-  font-size:8px; letter-spacing:2px;
-  text-transform:uppercase; margin-bottom:6px;
+.csum.g{
+  background:linear-gradient(135deg,#fdf9f0,#f9f3e4);
+  border-left:3px solid var(--gab-vert);
 }
-.csum.g .csum-lbl { color:var(--or); }
-.csum.i .csum-lbl { color:var(--intl2); }
-.csum-lbl::before {
-  content:''; width:5px; height:5px;
-  border-radius:50%; background:currentColor;
+.csum.i{
+  background:linear-gradient(135deg,#f0f5fc,#e8f0fa);
+  border-left:3px solid var(--intl2);
+  color:#1e2d3d;
+}
+
+.csum-lbl{
+  display:flex;align-items:center;gap:5px;
+  font-family:'DM Mono',monospace;
+  font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:6px;
+}
+.csum.g .csum-lbl{color:var(--gab-vert);}
+.csum.i .csum-lbl{color:var(--intl2);}
+.csum-lbl::before{
+  content:'';width:5px;height:5px;
+  border-radius:50%;background:currentColor;
   display:inline-block;
 }
 
 /* Pied de carte */
-.cfoot {
-  display:flex; align-items:center;
+.cfoot{
+  display:flex;align-items:center;
   justify-content:space-between;
   padding:10px 16px 12px;
-  border-top:1px solid #f2ede4;
+  border-top:1px solid #f0ece3;
 }
-.card.intl .cfoot { border-top-color:#e4edf7; }
+.card.intl .cfoot{border-top-color:#e4edf7;}
 
-.ccat {
-  font-size:10px; font-weight:500;
-  padding:3px 10px; border-radius:20px;
-  background:var(--sable2); color:var(--muted);
+.ccat{
+  font-size:10px;font-weight:500;
+  padding:3px 10px;border-radius:20px;
+  background:var(--sable2);color:var(--muted);
 }
 
-.cread {
-  font-size:11px; font-weight:600;
-  background:none; border:none; cursor:pointer;
-  display:flex; align-items:center;
-  gap:4px; letter-spacing:0.3px; padding:4px 0;
-  transition:gap 0.15s;
+.cread{
+  font-size:11px;font-weight:600;
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;
+  gap:4px;letter-spacing:.3px;padding:4px 0;
+  transition:gap .15s;
 }
-.cread:hover { gap:7px; }
-.cread.g { color:var(--foret3); }
-.cread.i { color:var(--intl2); }
+.cread:hover{gap:7px;}
+.cread.g{color:var(--foret3);}
+.cread.i{color:var(--intl2);}
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    PAGINATION
-════════════════════════════ */
-.pages {
-  display:flex; align-items:center;
-  justify-content:center; gap:6px;
-  margin-top:32px; flex-wrap:wrap;
+════════════════════════════════════ */
+.pages{
+  display:flex;align-items:center;
+  justify-content:center;gap:6px;
+  margin-top:32px;flex-wrap:wrap;
 }
-
-.pgbtn {
-  min-width:38px; height:38px;
-  padding:0 10px; border-radius:6px;
+.pgbtn{
+  min-width:38px;height:38px;
+  padding:0 10px;border-radius:6px;
   border:1px solid var(--sable2);
   background:var(--white);
   color:var(--muted);
-  font-size:13px; font-weight:500;
+  font-size:13px;font-weight:500;
   cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.15s;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
 }
-.pgbtn:hover:not(:disabled) { border-color:var(--or); color:var(--or); }
-.pgbtn.on { background:var(--foret); border-color:var(--foret); color:var(--or2); font-weight:700; }
-.pgbtn:disabled { opacity:0.3; cursor:not-allowed; }
+.pgbtn:hover:not(:disabled){border-color:var(--gab-vert);color:var(--gab-vert);}
+.pgbtn.on{
+  background:var(--foret);
+  border-color:var(--foret);
+  color:var(--gab-jaune);
+  font-weight:700;
+}
+.pgbtn:disabled{opacity:.3;cursor:not-allowed;}
 
-.pg-info {
+.pg-info{
   font-family:'DM Mono',monospace;
-  font-size:10px; color:var(--muted);
-  text-align:center; margin-top:10px;
+  font-size:10px;color:var(--muted);
+  text-align:center;margin-top:10px;
 }
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    ÉTATS
-════════════════════════════ */
-.state {
-  text-align:center; padding:70px 20px; color:var(--muted);
-}
-.state-ico { font-size:50px; margin-bottom:16px; opacity:0.5; animation:pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:.15} }
-.state h3 { font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--foret); margin-bottom:8px; }
-.state p  { font-size:13px; line-height:1.6; }
+════════════════════════════════════ */
+.state{text-align:center;padding:70px 20px;color:var(--muted);}
+.state-ico{font-size:50px;margin-bottom:16px;opacity:.45;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:.15}}
+.state h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--foret);margin-bottom:8px;}
+.state p{font-size:13px;line-height:1.6;}
 
-/* Skeletons */
-.skel {
-  background:var(--white);
-  border-radius:var(--radius);
+.skel{
+  background:var(--white);border-radius:var(--r);
   border:1px solid var(--sable2);
-  padding:16px; margin-bottom:16px;
+  padding:16px;margin-bottom:16px;
 }
-.sk {
+.sk{
   background:linear-gradient(90deg,#ede8df 25%,#e3ddd3 50%,#ede8df 75%);
   background-size:200% 100%;
-  animation:shimmer 1.3s infinite;
-  border-radius:4px;
+  animation:shimmer 1.3s infinite;border-radius:4px;
 }
-@keyframes shimmer { from{background-position:200% 0} to{background-position:-200% 0} }
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    TOAST
-════════════════════════════ */
-#toast {
-  position:fixed; bottom:24px; left:50%;
+════════════════════════════════════ */
+#toast{
+  position:fixed;bottom:24px;left:50%;
   transform:translateX(-50%) translateY(60px);
-  background:var(--foret);
-  color:var(--or-pale);
-  border:1px solid rgba(201,150,58,0.3);
-  padding:9px 18px; border-radius:30px;
-  font-size:12px; font-weight:500;
-  z-index:800; transition:transform 0.3s ease;
+  background:var(--foret);color:var(--or-pale);
+  border:1px solid rgba(201,150,58,.3);
+  padding:9px 18px;border-radius:30px;
+  font-size:12px;font-weight:500;
+  z-index:800;transition:transform .3s ease;
   white-space:nowrap;
 }
-#toast.show { transform:translateX(-50%) translateY(0); }
+#toast.show{transform:translateX(-50%) translateY(0);}
 
 /* Bande drapeau bas de page */
-.foot-flag {
-  position:fixed; bottom:0; left:0; right:0; height:4px;
-  background:linear-gradient(
-    to right,
-    var(--foret3) 0%,    var(--foret3) 33.33%,
-    var(--or)     33.33%,var(--or)     66.66%,
-    #2255cc       66.66%,#2255cc       100%
+.foot-flag{
+  position:fixed;bottom:0;left:0;right:0;height:5px;
+  background:linear-gradient(to right,
+    var(--gab-vert)  0%,   var(--gab-vert)  33.33%,
+    var(--gab-jaune) 33.33%,var(--gab-jaune) 66.66%,
+    var(--gab-bleu)  66.66%,var(--gab-bleu)  100%
   );
   z-index:100;
 }
 
-/* ════════════════════════════
+/* ════════════════════════════════════
    RESPONSIVE
-════════════════════════════ */
-@media(max-width:540px){
-  .h-inner, .nav-inner, .main { padding-left:14px; padding-right:14px; }
-  .ctitle   { font-size:19px; }
-  .csum     { font-size:13px; }
+════════════════════════════════════ */
+@media(max-width:520px){
+  .h-inner,.main{padding-left:14px;padding-right:14px;}
+  .nav-top{padding-left:14px;padding-right:14px;}
+  .chips-inner{padding-left:14px;padding-right:14px;}
+  .ctitle{font-size:19px;}
+  .csum{font-size:13px;}
+  .vtab{padding:13px 6px;font-size:13px;}
+  .parrot-wrap{width:38px;height:38px;}
 }
 </style>
 </head>
@@ -459,41 +478,83 @@ body {
 
 <div id="prog"></div>
 
-<!-- HEADER -->
+<!-- ══ HEADER ══════════════════════════════════════ -->
 <header class="site-header">
+  <div class="flag-top"></div>
   <div class="h-inner">
-    <div class="h-top">
-      <div class="logo-wrap">
-        <div class="logo">Capi<span class="acc">Talk</span><span class="n241">241</span></div>
+
+    <!-- Logo avec perroquet gris du Gabon -->
+    <div class="logo-block">
+      <div class="parrot-wrap">
+        <!-- Perroquet gris du Gabon — SVG stylisé -->
+        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Corps -->
+          <ellipse cx="50" cy="62" rx="22" ry="26" fill="#b0b8b0"/>
+          <!-- Aile -->
+          <ellipse cx="40" cy="66" rx="14" ry="20" fill="#8a9490" transform="rotate(-10 40 66)"/>
+          <!-- Queue rouge caractéristique -->
+          <path d="M44 84 Q50 96 56 84 Q52 90 50 92 Q48 90 44 84Z" fill="#c0392b"/>
+          <!-- Tête -->
+          <circle cx="50" cy="38" r="20" fill="#9aa09a"/>
+          <!-- Masque facial blanc-gris -->
+          <ellipse cx="50" cy="42" rx="12" ry="10" fill="#e8e8e0"/>
+          <!-- Oeil -->
+          <circle cx="54" cy="38" r="5" fill="#f5f5dc"/>
+          <circle cx="55" cy="38" r="3" fill="#1a1a1a"/>
+          <circle cx="56" cy="37" r="1" fill="white"/>
+          <!-- Bec crochu -->
+          <path d="M46 44 Q43 48 46 50 Q50 48 50 44Z" fill="#4a3a1a"/>
+          <path d="M46 44 Q50 44 50 47 Q48 49 46 48Z" fill="#3a2a10"/>
+          <!-- Plumes tête -->
+          <ellipse cx="50" cy="22" rx="6" ry="10" fill="#8a9490" transform="rotate(-5 50 22)"/>
+          <ellipse cx="55" cy="20" rx="4" ry="8" fill="#8a9490" transform="rotate(10 55 20)"/>
+        </svg>
+      </div>
+      <div class="logo-text-block">
+        <div class="logo">Capi<span class="acc">Talk</span><span class="num">241</span></div>
         <div class="logo-sub">Ce qui est capital pour le Gabon</div>
       </div>
-      <div class="h-right">
-        <div class="date-lbl" id="cur-date">—</div>
-        <div class="badges">
-          <span class="badge bg" id="cnt-g">—</span>
-          <span class="badge bi" id="cnt-i">—</span>
-        </div>
-        <button class="btn-ref" id="btn-ref" onclick="doRefresh()">
-          <span id="ri">↻</span> Actualiser
-        </button>
-      </div>
     </div>
+
+    <div class="h-right">
+      <div class="date-lbl" id="cur-date">—</div>
+      <div class="badges">
+        <span class="badge bg" id="cnt-g" title="Articles gabonais">—</span>
+        <span class="badge bi" id="cnt-i" title="Articles internationaux">—</span>
+      </div>
+      <button class="btn-ref" id="btn-ref" onclick="doRefresh()">
+        <span id="ri">↻</span> Actualiser
+      </button>
+    </div>
+
   </div>
-  <div class="flag-strip"></div>
 </header>
 
-<!-- NAV -->
+<!-- ══ ONGLETS GRANDS ══════════════════════════════ -->
 <nav class="nav">
-  <div class="nav-inner">
-    <button class="vtab ag on" onclick="setView('gabon',this)">🇬🇦 Gabon</button>
-    <button class="vtab ai"    onclick="setView('international',this)">🌍 International</button>
-    <button class="vtab aa"    onclick="setView('all',this)">⚡ Tout</button>
-    <div class="ndiv"></div>
-    <div class="chips-row" id="chips"></div>
+  <div class="nav-top">
+    <button class="vtab tg on" onclick="setView('gabon',this)">
+      <span class="tab-icon">🇬🇦</span>
+      <span class="tab-lbl">Gabon</span>
+    </button>
+    <button class="vtab ti" onclick="setView('international',this)">
+      <span class="tab-icon">🌍</span>
+      <span class="tab-lbl">International</span>
+    </button>
+    <button class="vtab ta" onclick="setView('all',this)">
+      <span class="tab-icon">⚡</span>
+      <span class="tab-lbl">Tout</span>
+    </button>
   </div>
+  <div class="nav-indicator"></div>
 </nav>
 
-<!-- CONTENU -->
+<!-- Chips sources -->
+<div class="chips-bar">
+  <div class="chips-inner" id="chips"></div>
+</div>
+
+<!-- ══ CONTENU ══════════════════════════════════════ -->
 <main class="main" id="main"></main>
 
 <div class="foot-flag"></div>
@@ -503,128 +564,107 @@ body {
 const BACKEND  = 'https://capitalk241-backend.onrender.com/news';
 const PER_PAGE = 10;
 
-let view      = 'gabon';
-let srcFilter = 'all';
-let page      = 1;
-let busy      = false;
-let data      = { gabon:[], international:[], all:[] };
+let view='gabon', src='all', page=1, busy=false;
+let data={gabon:[],international:[],all:[]};
 
-const GSRC = [
+const GSRC=[
   {id:'gabonmediatime',label:'Gabon Media Time'},
   {id:'gabonreview',   label:'Gabon Review'},
   {id:'gabonactu',     label:'Gabon Actu'},
 ];
-const ISRC = [
+const ISRC=[
   {id:'rfi',             label:'RFI'},
   {id:'france24',        label:'France 24'},
   {id:'jeuneafrique',    label:'Jeune Afrique'},
-  {id:'bbc_afrique',     label:'BBC'},
+  {id:'bbc_afrique',     label:'BBC Afrique'},
   {id:'lemonde_afrique', label:'Le Monde'},
   {id:'brut_afrique',    label:'Brut'},
 ];
 
-// Date
-document.getElementById('cur-date').textContent =
+document.getElementById('cur-date').textContent=
   new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
 
-// Progress
-function prog(pct) {
-  const b = document.getElementById('prog');
-  b.style.width   = pct+'%';
-  b.style.opacity = (pct>0 && pct<100) ? '1' : '0';
+function prog(p){
+  const b=document.getElementById('prog');
+  b.style.width=p+'%';
+  b.style.opacity=(p>0&&p<100)?'1':'0';
 }
 
-// Toast
-function toast(msg, ms=3000) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), ms);
+function toast(msg,ms=3000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),ms);
 }
 
-// Fetch
-async function fetchData(manual=false) {
-  if (busy) return;
-  busy = true;
-  const btn = document.getElementById('btn-ref');
-  btn.disabled = true;
-  document.getElementById('ri').outerHTML =
+async function fetchData(manual=false){
+  if(busy)return;
+  busy=true;
+  const btn=document.getElementById('btn-ref');
+  btn.disabled=true;
+  document.getElementById('ri').outerHTML=
     '<span id="ri"><span class="spinner"></span></span>';
-  prog(20);
-  showSkels();
-  prog(55);
+  prog(20);showSkels();prog(55);
 
-  try {
-    const r    = await fetch(BACKEND);
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const json = await r.json();
-
-    data.gabon         = json.articles.filter(a => a.source_type === 'gabon');
-    data.international = json.articles.filter(a => a.source_type === 'international');
-    data.all           = json.articles;
-
-    document.getElementById('cnt-g').textContent = data.gabon.length;
-    document.getElementById('cnt-i').textContent = data.international.length;
-
+  try{
+    const r=await fetch(BACKEND);
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const json=await r.json();
+    data.gabon        =json.articles.filter(a=>a.source_type==='gabon');
+    data.international=json.articles.filter(a=>a.source_type==='international');
+    data.all          =json.articles;
+    document.getElementById('cnt-g').textContent=data.gabon.length;
+    document.getElementById('cnt-i').textContent=data.international.length;
     prog(100);
-    if (manual) toast('✓ ' + data.all.length + ' articles chargés');
-  } catch(e) {
+    if(manual)toast('✓ '+data.all.length+' articles chargés');
+  }catch(e){
     prog(0);
-    if (manual) toast('⚠ Serveur inaccessible');
+    if(manual)toast('⚠ Serveur inaccessible');
   }
 
-  document.getElementById('ri').outerHTML = '<span id="ri">↻</span>';
-  btn.disabled = false;
-  busy = false;
-  page = 1;
-  renderChips();
-  render();
+  document.getElementById('ri').outerHTML='<span id="ri">↻</span>';
+  btn.disabled=false;busy=false;
+  page=1;renderChips();render();
 }
 
-function doRefresh() { fetchData(true); }
+function doRefresh(){fetchData(true);}
 
-// Skeletons
-function showSkels() {
-  document.getElementById('main').innerHTML = Array(4).fill(0).map(()=>`
+function showSkels(){
+  document.getElementById('main').innerHTML=Array(4).fill(0).map(()=>`
     <div class="skel">
       <div class="sk" style="height:4px;margin-bottom:14px;border-radius:2px"></div>
       <div class="sk" style="height:9px;width:28%;margin-bottom:14px"></div>
       <div class="sk" style="height:28px;width:90%;margin-bottom:6px"></div>
       <div class="sk" style="height:28px;width:65%;margin-bottom:14px"></div>
-      <div class="sk" style="height:82px;margin-bottom:12px"></div>
+      <div class="sk" style="height:80px;margin-bottom:12px"></div>
       <div class="sk" style="height:9px;width:35%"></div>
     </div>`).join('');
 }
 
-// View
-function setView(v, btn) {
-  view = v; srcFilter = 'all'; page = 1;
+function setView(v,btn){
+  view=v;src='all';page=1;
   document.querySelectorAll('.vtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  renderChips();
-  render();
+  renderChips();render();
 }
 
-// Chips
-function renderChips() {
-  const wrap = document.getElementById('chips');
-  const srcs = view==='gabon' ? GSRC : view==='international' ? ISRC : [...GSRC,...ISRC];
-  const t    = view==='international' ? 'ci' : 'cg';
-  wrap.innerHTML =
-    `<button class="chip ${t} ${srcFilter==='all'?'on':''}" onclick="setSrc('all')">Tous</button>` +
-    srcs.map(s=>`<button class="chip ${t} ${srcFilter===s.id?'on':''}" onclick="setSrc('${s.id}')">${s.label}</button>`).join('');
+function renderChips(){
+  const wrap=document.getElementById('chips');
+  const srcs=view==='gabon'?GSRC:view==='international'?ISRC:[...GSRC,...ISRC];
+  const t=view==='international'?'ci':'cg';
+  wrap.innerHTML=
+    `<button class="chip ${t} ${src==='all'?'on':''}" onclick="setSrc('all')">Tous</button>`+
+    srcs.map(s=>`<button class="chip ${t} ${src===s.id?'on':''}" onclick="setSrc('${s.id}')">${s.label}</button>`).join('');
 }
 
-function setSrc(id) { srcFilter=id; page=1; renderChips(); render(); }
+function setSrc(id){src=id;page=1;renderChips();render();}
 
-// Render
-function render() {
-  const main = document.getElementById('main');
-  let arts = view==='all' ? data.all : (data[view]||[]);
-  if (srcFilter!=='all') arts = arts.filter(a=>a.source_id===srcFilter);
+function render(){
+  const main=document.getElementById('main');
+  let arts=view==='all'?data.all:(data[view]||[]);
+  if(src!=='all')arts=arts.filter(a=>a.source_id===src);
 
-  if (!arts.length) {
-    main.innerHTML = `<div class="state">
+  if(!arts.length){
+    main.innerHTML=`<div class="state">
       <div class="state-ico">📭</div>
       <h3>Aucun article disponible</h3>
       <p>Aucun contenu pour ce filtre.<br>Réessaie dans quelques minutes.</p>
@@ -632,27 +672,26 @@ function render() {
     return;
   }
 
-  const total  = arts.length;
-  const nPages = Math.ceil(total/PER_PAGE);
-  page = Math.min(page, nPages);
-  const start  = (page-1)*PER_PAGE;
-  const slice  = arts.slice(start, start+PER_PAGE);
+  const total=arts.length;
+  const nPg=Math.ceil(total/PER_PAGE);
+  page=Math.min(page,nPg);
+  const slice=arts.slice((page-1)*PER_PAGE,page*PER_PAGE);
 
-  if (view==='all') {
-    const gab  = slice.filter(a=>a.source_type==='gabon');
-    const intl = slice.filter(a=>a.source_type==='international');
-    main.innerHTML =
-      (gab.length  ? secBlock('g','🇬🇦 Presse gabonaise',gab)     : '') +
-      (intl.length ? secBlock('i','🌍 Regards internationaux',intl): '') +
-      pgBlock(page, nPages, total);
-  } else {
-    main.innerHTML = slice.map((a,i)=>cardHtml(a,i)).join('') + pgBlock(page, nPages, total);
+  if(view==='all'){
+    const gab =slice.filter(a=>a.source_type==='gabon');
+    const intl=slice.filter(a=>a.source_type==='international');
+    main.innerHTML=
+      (gab.length ?secBlock('g','🇬🇦 Presse gabonaise',gab)      :'')+
+      (intl.length?secBlock('i','🌍 Regards internationaux',intl):'') +
+      pgBlock(page,nPg,total);
+  }else{
+    main.innerHTML=slice.map((a,i)=>cardHtml(a,i)).join('')+pgBlock(page,nPg,total);
   }
 
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function secBlock(t, lbl, arts) {
+function secBlock(t,lbl,arts){
   return `
     <div class="sec-head">
       <span class="sdot ${t}"></span>
@@ -663,21 +702,26 @@ function secBlock(t, lbl, arts) {
     ${arts.map((a,i)=>cardHtml(a,i)).join('')}`;
 }
 
-function cardHtml(a, i) {
-  const isI = a.source_type==='international';
-  const t   = isI ? 'i' : 'g';
-  const url = (a.url||'#').replace(/'/g,'%27');
+function cardHtml(a,i){
+  const isI=a.source_type==='international';
+  const t=isI?'i':'g';
+  const url=(a.url||'#').replace(/'/g,'%27');
+  // Nettoie le résumé des préfixes résiduels côté client aussi
+  let sum=a.ai_summary||'—';
+  ['Résumé :','Résumé:','# Résumé','**Résumé**'].forEach(p=>{
+    if(sum.startsWith(p))sum=sum.slice(p.length).trim();
+  });
   return `
-  <div class="card ${isI?'intl':''}" style="animation-delay:${i*0.05}s">
-    <div class="cstripe ${t}"></div>
+  <div class="card ${isI?'intl':''}" style="animation-delay:${i*.05}s">
+    <div class="cbar ${t}"></div>
     <div class="cmeta">
-      <span class="csrc ${t}">${isI?'<span class="intl-pill">INTL</span>':''}${a.source_name}</span>
+      <span class="csrc ${t}">${isI?'<span class="intl-tag">INTL</span>':''}${a.source_name}</span>
       <span class="ctime">${a.time_ago||a.time||'Récent'}</span>
     </div>
     <div class="ctitle">${a.title}</div>
     <div class="csum ${t}">
       <div class="csum-lbl">Résumé CapiTalk241</div>
-      ${a.ai_summary||'—'}
+      ${sum}
     </div>
     <div class="cfoot">
       <span class="ccat">${a.category||'Actualité'}</span>
@@ -686,19 +730,18 @@ function cardHtml(a, i) {
   </div>`;
 }
 
-// Pagination
-function pgBlock(cur, total, artTotal) {
-  if (total<=1) return '';
-  let nums = new Set([1,total]);
-  for (let p=Math.max(1,cur-2);p<=Math.min(total,cur+2);p++) nums.add(p);
-  nums = [...nums].sort((a,b)=>a-b);
-  let btns='', prev=0;
-  for (const n of nums) {
-    if (prev && n-prev>1) btns+=`<span class="pgbtn" style="cursor:default;color:#ccc;border-color:transparent">…</span>`;
+function pgBlock(cur,total,artTotal){
+  if(total<=1)return'';
+  let nums=new Set([1,total]);
+  for(let p=Math.max(1,cur-2);p<=Math.min(total,cur+2);p++)nums.add(p);
+  nums=[...nums].sort((a,b)=>a-b);
+  let btns='',prev=0;
+  for(const n of nums){
+    if(prev&&n-prev>1)btns+=`<span class="pgbtn" style="cursor:default;color:#ccc;border-color:transparent">…</span>`;
     btns+=`<button class="pgbtn ${n===cur?'on':''}" onclick="goPage(${n})">${n}</button>`;
     prev=n;
   }
-  const s=(cur-1)*PER_PAGE+1, e=Math.min(cur*PER_PAGE,artTotal);
+  const s=(cur-1)*PER_PAGE+1,e=Math.min(cur*PER_PAGE,artTotal);
   return `
     <div class="pages">
       <button class="pgbtn" onclick="goPage(${cur-1})" ${cur===1?'disabled':''}>‹</button>
@@ -708,12 +751,9 @@ function pgBlock(cur, total, artTotal) {
     <p class="pg-info">Articles ${s}–${e} sur ${artTotal}</p>`;
 }
 
-function goPage(p) { page=p; render(); }
+function goPage(p){page=p;render();}
 
-// Auto-refresh 60min
-setInterval(()=>fetchData(false), 60*60*1000);
-
-// Démarrage
+setInterval(()=>fetchData(false),60*60*1000);
 renderChips();
 fetchData(false);
 </script>
