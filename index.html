@@ -527,7 +527,7 @@ body {
 }
 
 /* ════════════════════════════════════
-   RÉCAP HEBDOMADAIRE
+   RÉCAP HEBDOMADAIRE — style éditorial
 ════════════════════════════════════ */
 .recap-section {
   background: var(--foret);
@@ -535,72 +535,100 @@ body {
   margin-bottom: 24px;
   overflow: hidden;
   border: 1px solid var(--foret3);
+  box-shadow: 0 4px 20px rgba(6,26,14,0.15);
 }
 
 .recap-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
+  gap: 14px;
+  padding: 16px 22px;
   background: linear-gradient(135deg, var(--foret2), var(--foret));
   border-bottom: 2px solid var(--or);
   cursor: pointer;
   user-select: none;
 }
 
-.recap-icon {
-  font-size: 22px;
+.recap-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--or);
+  background: rgba(201,150,58,0.1);
+  border: 1px solid rgba(201,150,58,0.25);
+  padding: 3px 10px;
+  border-radius: 3px;
   flex-shrink: 0;
 }
 
 .recap-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
-  color: var(--or2);
+  color: var(--ivoire);
   flex: 1;
+  letter-spacing: -0.3px;
 }
 
 .recap-date {
   font-family: 'DM Mono', monospace;
   font-size: 9px;
-  color: rgba(201,150,58,0.5);
-  letter-spacing: 1px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
 .recap-toggle {
-  color: var(--or);
-  font-size: 16px;
+  color: rgba(201,150,58,0.5);
+  font-size: 14px;
   transition: transform 0.2s;
+  flex-shrink: 0;
 }
 .recap-toggle.open { transform: rotate(180deg); }
 
 .recap-body {
-  padding: 18px 20px;
+  padding: 24px 28px;
   display: none;
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
 .recap-body.open { display: block; }
 
 .recap-text {
-  font-size: 13.5px;
-  line-height: 1.85;
-  color: rgba(255,255,255,0.82);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.78);
   white-space: pre-line;
+  font-weight: 300;
+}
+
+/* Signature de la rédaction */
+.recap-signature {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(201,150,58,0.45);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .recap-fb-badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  margin-top: 14px;
-  background: rgba(24,119,242,0.2);
-  border: 1px solid rgba(24,119,242,0.35);
-  color: #7aacee;
-  font-size: 10px;
+  background: rgba(24,119,242,0.15);
+  border: 1px solid rgba(24,119,242,0.25);
+  color: rgba(122,172,238,0.7);
+  font-size: 9px;
   font-family: 'DM Mono', monospace;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 3px 9px;
+  border-radius: 3px;
   letter-spacing: 0.5px;
 }
 
@@ -718,14 +746,17 @@ width:38px;height:38px;}
 <div class="main" id="recap-wrap" style="display:none; padding-bottom:0;">
   <div class="recap-section" id="recap-section">
     <div class="recap-header" onclick="toggleRecap()">
-      <span class="recap-icon">📋</span>
-      <span class="recap-title">Récap de la semaine</span>
+      <span class="recap-label">Édition hebdo</span>
+      <span class="recap-title">Revue de la semaine au Gabon</span>
       <span class="recap-date" id="recap-date">—</span>
       <span class="recap-toggle" id="recap-toggle">▼</span>
     </div>
     <div class="recap-body" id="recap-body">
       <div class="recap-text" id="recap-text">Chargement...</div>
-      <span class="recap-fb-badge">📘 Publié sur Facebook chaque dimanche à 16h30</span>
+      <div class="recap-signature">
+        <span>Gabon Phare · Rédaction</span>
+        <span class="recap-fb-badge">Publié sur Facebook · Dimanche 16h30</span>
+      </div>
     </div>
   </div>
 </div>
