@@ -527,6 +527,84 @@ body {
 }
 
 /* ════════════════════════════════════
+   RÉCAP HEBDOMADAIRE
+════════════════════════════════════ */
+.recap-section {
+  background: var(--foret);
+  border-radius: var(--r);
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid var(--foret3);
+}
+
+.recap-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--foret2), var(--foret));
+  border-bottom: 2px solid var(--or);
+  cursor: pointer;
+  user-select: none;
+}
+
+.recap-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.recap-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--or2);
+  flex: 1;
+}
+
+.recap-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(201,150,58,0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.recap-toggle {
+  color: var(--or);
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+.recap-toggle.open { transform: rotate(180deg); }
+
+.recap-body {
+  padding: 18px 20px;
+  display: none;
+}
+.recap-body.open { display: block; }
+
+.recap-text {
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.82);
+  white-space: pre-line;
+}
+
+.recap-fb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  background: rgba(24,119,242,0.2);
+  border: 1px solid rgba(24,119,242,0.35);
+  color: #7aacee;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════ */
 @media(max-width:520px){
@@ -637,13 +715,29 @@ width:38px;height:38px;}
 </div>
 
 <!-- ══ CONTENU ══════════════════════════════════════ -->
+<div class="main" id="recap-wrap" style="display:none; padding-bottom:0;">
+  <div class="recap-section" id="recap-section">
+    <div class="recap-header" onclick="toggleRecap()">
+      <span class="recap-icon">📋</span>
+      <span class="recap-title">Récap de la semaine</span>
+      <span class="recap-date" id="recap-date">—</span>
+      <span class="recap-toggle" id="recap-toggle">▼</span>
+    </div>
+    <div class="recap-body" id="recap-body">
+      <div class="recap-text" id="recap-text">Chargement...</div>
+      <span class="recap-fb-badge">📘 Publié sur Facebook chaque vendredi à 19h</span>
+    </div>
+  </div>
+</div>
+
 <main class="main" id="main"></main>
 
 <div class="foot-flag"></div>
 <div id="toast"></div>
 
 <script>
-const BACKEND  = 'https://capitalk241-backend.onrender.com/news'; // à mettre à jour si Render change
+const BACKEND       = 'https://capitalk241-backend.onrender.com/news';
+const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à mettre à jour si Render change
 const PER_PAGE = 10;
 
 let view='gabon', src='all', page=1, busy=false;
@@ -836,8 +930,45 @@ function pgBlock(cur,total,artTotal){
 function goPage(p){page=p;render();}
 
 setInterval(()=>fetchData(false),60*60*1000);
+setInterval(()=>fetchRecap(),60*60*1000);  // rafraîchit le récap toutes les heures
+
+// ══ RÉCAP HEBDOMADAIRE ══════════════════════════════
+async function fetchRecap() {
+  try {
+    const r    = await fetch(BACKEND_RECAP);
+    const json = await r.json();
+
+    if (!json.available) return;
+
+    // Affiche la section
+    document.getElementById('recap-wrap').style.display = 'block';
+
+    // Date de génération
+    if (json.generated_at) {
+      const d = new Date(json.generated_at);
+      document.getElementById('recap-date').textContent =
+        d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'}).toUpperCase();
+    }
+
+    // Texte du récap
+    document.getElementById('recap-text').textContent = json.recap;
+
+  } catch(e) {
+    console.warn('Récap non disponible:', e.message);
+  }
+}
+
+function toggleRecap() {
+  const body    = document.getElementById('recap-body');
+  const toggle  = document.getElementById('recap-toggle');
+  const isOpen  = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
 renderChips();
 fetchData(false);
+fetchRecap();
 </script>
 </body>
 </html>
