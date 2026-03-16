@@ -6,787 +6,670 @@
 <title>Gabon Phare — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-:root {
-  --foret:   #0e2218;
-  --foret2:  #163322;
-  --foret3:  #1f4530;
-  --or:      #c9963a;
-  --or2:     #e8b84b;
-  --sable:   #f4ede0;
-  --sable2:  #ede3d0;
-  --ivoire:  #faf7f1;
-  --encre:   #1a1a1a;
-  --muted:   #6b7a6e;
-  --vert:    #009A44;
-  --jaune:   #FCD116;
-  --bleu:    #003893;
-  --danger:  #c0392b;
-  --success: #27ae60;
-  --white:   #ffffff;
-  --r:       8px;
+:root{
+  --foret:#0e2218;--foret2:#163322;--foret3:#1f4530;
+  --or:#c9963a;--or2:#e8b84b;--or-pale:#f5dfa0;
+  --sable:#f4ede0;--sable2:#ede3d0;--ivoire:#faf7f1;
+  --encre:#1a1a1a;--muted:#6b7a6e;
+  --vert:#009A44;--jaune:#FCD116;--bleu:#003893;
+  --danger:#c0392b;--danger2:#e74c3c;
+  --success:#27ae60;--white:#ffffff;--r:8px;
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{font-size:16px;}
 body{font-family:'DM Sans',sans-serif;background:var(--sable);color:var(--encre);min-height:100vh;}
 
-/* ── LOGIN ─────────────────────────────── */
-.login-wrap{
-  min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
+/* ── LOGIN ──────────────────────────────────────────── */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;
   background:var(--foret);
-  background-image:
-    radial-gradient(ellipse at 20% 30%, rgba(201,150,58,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 70%, rgba(0,154,68,0.06) 0%, transparent 60%);
-}
-
-.login-card{
-  background:var(--foret2);
-  border:1px solid rgba(201,150,58,0.2);
-  border-radius:12px;
-  padding:40px;
-  width:100%;max-width:380px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.4);
-}
-
-.login-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:32px;font-weight:700;
-  color:var(--ivoire);
-  text-align:center;
-  margin-bottom:4px;
-}
+  background-image:radial-gradient(ellipse at 20% 30%,rgba(201,150,58,.08) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 70%,rgba(0,154,68,.06) 0%,transparent 60%);}
+.login-card{background:var(--foret2);border:1px solid rgba(201,150,58,.2);border-radius:12px;
+  padding:40px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+.login-logo{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;
+  color:var(--ivoire);text-align:center;margin-bottom:4px;}
 .login-logo span{color:var(--or2);}
+.login-sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,150,58,.45);text-align:center;margin-bottom:28px;}
+.lfield{margin-bottom:16px;}
+.lfield label{display:block;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-bottom:6px;}
+.lfield input{width:100%;padding:11px 14px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--ivoire);
+  font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.lfield input:focus{border-color:var(--or);}
+.btn-login{width:100%;padding:12px;background:var(--or);border:none;border-radius:6px;
+  color:var(--foret);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:background .2s;margin-top:8px;}
+.btn-login:hover{background:var(--or2);}
+.btn-login:disabled{opacity:.5;cursor:not-allowed;}
+.lerr{background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.4);color:#e88;
+  padding:10px 12px;border-radius:6px;font-size:12px;margin-top:12px;display:none;}
 
-.login-sub{
-  font-family:'DM Mono',monospace;
-  font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  color:rgba(201,150,58,0.45);
-  text-align:center;margin-bottom:28px;
-}
-
-.form-group{margin-bottom:16px;}
-.form-group label{
-  display:block;
-  font-size:11px;font-weight:600;
-  letter-spacing:0.5px;text-transform:uppercase;
-  color:rgba(255,255,255,0.45);
-  margin-bottom:6px;
-}
-.form-group input{
-  width:100%;padding:11px 14px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:6px;
-  color:var(--ivoire);
-  font-family:'DM Sans',sans-serif;font-size:14px;
-  outline:none;transition:border-color 0.2s;
-}
-.form-group input:focus{border-color:var(--or);}
-
-.btn-primary{
-  width:100%;padding:12px;
-  background:var(--or);border:none;border-radius:6px;
-  color:var(--foret);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:background 0.2s;
-  margin-top:8px;
-}
-.btn-primary:hover{background:var(--or2);}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
-
-.login-error{
-  background:rgba(192,57,43,0.2);border:1px solid rgba(192,57,43,0.4);
-  color:#e88;padding:10px 12px;border-radius:6px;
-  font-size:12px;margin-top:12px;display:none;
-}
-
-/* ── DASHBOARD ─────────────────────────── */
+/* ── DASHBOARD ──────────────────────────────────────── */
 .dashboard{display:none;}
-
-.top-bar{
-  background:var(--foret);
-  border-bottom:3px solid var(--or);
-  padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:56px;
-  position:sticky;top:0;z-index:100;
-}
-
-.top-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px;font-weight:700;
-  color:var(--ivoire);
-}
+.flag-bar{height:4px;background:linear-gradient(to right,
+  var(--vert) 0%,var(--vert) 33.33%,var(--jaune) 33.33%,var(--jaune) 66.66%,
+  var(--bleu) 66.66%,var(--bleu) 100%);}
+.top-bar{background:var(--foret);border-bottom:3px solid var(--or);padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;height:56px;
+  position:sticky;top:0;z-index:100;}
+.top-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ivoire);}
 .top-logo span{color:var(--or2);}
-.top-logo em{
-  font-style:normal;font-size:11px;
-  font-family:'DM Mono',monospace;
-  color:rgba(201,150,58,0.5);
-  letter-spacing:2px;text-transform:uppercase;
-  margin-left:8px;
-}
-
+.top-logo em{font-style:normal;font-size:11px;font-family:'DM Mono',monospace;
+  color:rgba(201,150,58,.5);letter-spacing:2px;text-transform:uppercase;margin-left:8px;}
 .top-right{display:flex;align-items:center;gap:12px;}
+.admin-mail{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.5px;}
+.btn-out{padding:5px 14px;background:transparent;border:1px solid rgba(201,150,58,.3);
+  border-radius:20px;color:rgba(201,150,58,.6);font-size:11px;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-out:hover{border-color:var(--or);color:var(--or);}
 
-.admin-email{
-  font-family:'DM Mono',monospace;font-size:10px;
-  color:rgba(255,255,255,0.35);letter-spacing:0.5px;
-}
+/* ── LAYOUT ─────────────────────────────────────────── */
+.layout{display:flex;min-height:calc(100vh - 60px);}
+.sidebar{width:220px;flex-shrink:0;background:var(--foret2);
+  border-right:1px solid rgba(255,255,255,.05);padding:20px 0;}
+.nav-sec{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.15);padding:16px 20px 6px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.35);cursor:pointer;transition:all .15s;border-left:3px solid transparent;}
+.nav-item:hover{color:rgba(255,255,255,.65);background:rgba(255,255,255,.03);}
+.nav-item.on{color:var(--or2);border-left-color:var(--or);background:rgba(201,150,58,.07);}
+.nav-item .ic{font-size:16px;flex-shrink:0;}
+.content{flex:1;padding:28px;overflow-y:auto;}
 
-.btn-logout{
-  padding:5px 14px;
-  background:transparent;
-  border:1px solid rgba(201,150,58,0.3);
-  border-radius:20px;
-  color:rgba(201,150,58,0.6);
-  font-size:11px;font-weight:500;
-  cursor:pointer;transition:all 0.2s;
-}
-.btn-logout:hover{border-color:var(--or);color:var(--or);}
+/* ── SECTIONS ───────────────────────────────────────── */
+.sec{display:none;}
+.sec.on{display:block;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;
+  color:var(--foret);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
 
-/* Flag stripe */
-.flag-bar{
-  height:4px;
-  background:linear-gradient(to right,
-    var(--vert) 0%,var(--vert) 33.33%,
-    var(--jaune) 33.33%,var(--jaune) 66.66%,
-    var(--bleu) 66.66%,var(--bleu) 100%
-  );
-}
-
-/* ── LAYOUT ────────────────────────────── */
-.main-layout{
-  display:flex;min-height:calc(100vh - 60px);
-}
-
-/* Sidebar */
-.sidebar{
-  width:220px;flex-shrink:0;
-  background:var(--foret2);
-  border-right:1px solid rgba(255,255,255,0.05);
-  padding:20px 0;
-}
-
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 20px;
-  font-size:13px;font-weight:500;
-  color:rgba(255,255,255,0.4);
-  cursor:pointer;transition:all 0.15s;
-  border-left:3px solid transparent;
-}
-.nav-item:hover{color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.03);}
-.nav-item.active{color:var(--or2);border-left-color:var(--or);background:rgba(201,150,58,0.07);}
-.nav-item .ni{font-size:16px;flex-shrink:0;}
-
-.nav-section{
-  font-family:'DM Mono',monospace;
-  font-size:8px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,0.15);
-  padding:16px 20px 6px;
-}
-
-/* Content */
-.content{
-  flex:1;padding:28px;
-  overflow-y:auto;
-}
-
-/* ── STATS CARDS ────────────────────────── */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:14px;margin-bottom:28px;
-}
-
-.stat-card{
-  background:var(--white);
-  border-radius:var(--r);
-  border:1px solid var(--sable2);
-  padding:18px;
-}
-
-.stat-label{
-  font-family:'DM Mono',monospace;
-  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:8px;
-}
-
-.stat-value{
-  font-family:'Cormorant Garamond',serif;
-  font-size:36px;font-weight:700;
-  color:var(--foret);line-height:1;
-}
-
+/* ── STATS ──────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
+.stat-card{background:var(--white);border-radius:var(--r);border:1px solid var(--sable2);padding:18px;}
+.stat-card.dark{background:var(--foret);border-color:var(--foret3);}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.stat-card.dark .stat-lbl{color:rgba(255,255,255,.35);}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--foret);line-height:1;}
+.stat-card.dark .stat-val{color:var(--or2);}
 .stat-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+.stat-card.dark .stat-sub{color:rgba(255,255,255,.3);}
 
-.stat-card.accent{background:var(--foret);border-color:var(--foret3);}
-.stat-card.accent .stat-label{color:rgba(255,255,255,0.4);}
-.stat-card.accent .stat-value{color:var(--or2);}
-.stat-card.accent .stat-sub{color:rgba(255,255,255,0.35);}
-
-/* ── SECTIONS ───────────────────────────── */
-.section{display:none;}
-.section.active{display:block;}
-
-.section-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:24px;font-weight:700;
-  color:var(--foret);margin-bottom:20px;
-  display:flex;align-items:center;gap:10px;
-}
-
-/* ── FORMULAIRE ARTICLE ─────────────────── */
-.article-form{
-  background:var(--white);
-  border-radius:var(--r);
-  border:1px solid var(--sable2);
-  padding:28px;max-width:720px;
-}
-
+/* ── FORM ───────────────────────────────────────────── */
+.form-wrap{background:var(--white);border-radius:var(--r);border:1px solid var(--sable2);padding:28px;max-width:720px;}
 .field{margin-bottom:18px;}
-.field label{
-  display:block;font-size:12px;font-weight:600;
-  letter-spacing:0.3px;color:var(--muted);
-  margin-bottom:6px;text-transform:uppercase;
-}
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;padding:10px 14px;
-  border:1.5px solid var(--sable2);
-  border-radius:6px;
-  font-family:'DM Sans',sans-serif;font-size:14px;
-  color:var(--encre);background:var(--ivoire);
-  outline:none;transition:border-color 0.2s;
-  resize:vertical;
-}
-.field input:focus,
-.field textarea:focus,
-.field select:focus{border-color:var(--or);}
-
+.field label{display:block;font-size:12px;font-weight:600;letter-spacing:.3px;color:var(--muted);
+  margin-bottom:6px;text-transform:uppercase;}
+.field input,.field textarea,.field select{width:100%;padding:10px 14px;
+  border:1.5px solid var(--sable2);border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--encre);background:var(--ivoire);
+  outline:none;transition:border-color .2s;resize:vertical;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--or);}
 .field textarea{min-height:180px;line-height:1.7;}
-
 .field-hint{font-size:11px;color:var(--muted);margin-top:4px;}
-
-.toggle-row{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 14px;
-  background:var(--sable);
-  border-radius:6px;
-  border:1px solid var(--sable2);
-}
+.toggle-row{display:flex;align-items:center;gap:10px;padding:12px 14px;
+  background:var(--sable);border-radius:6px;border:1px solid var(--sable2);}
 .toggle-row label{font-size:13px;font-weight:500;flex:1;cursor:pointer;}
-.toggle-row input[type=checkbox]{
-  width:18px;height:18px;cursor:pointer;accent-color:var(--vert);
-}
+.toggle-row input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--vert);}
+.img-prev{width:100%;max-height:200px;object-fit:cover;border-radius:6px;
+  border:1px solid var(--sable2);margin-top:8px;display:none;}
 
-.btn-publish{
-  display:flex;align-items:center;gap:8px;
-  padding:13px 28px;
-  background:var(--foret);border:none;border-radius:6px;
-  color:var(--or2);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all 0.2s;
-  margin-top:8px;
-}
-.btn-publish:hover{background:var(--foret3);}
-.btn-publish:disabled{opacity:0.5;cursor:not-allowed;}
+/* ── BUTTONS ────────────────────────────────────────── */
+.btn-pub{display:flex;align-items:center;gap:8px;padding:13px 28px;
+  background:var(--foret);border:none;border-radius:6px;color:var(--or2);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-pub:hover{background:var(--foret3);}
+.btn-pub:disabled{opacity:.5;cursor:not-allowed;}
+.btn-sm{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.btn-danger{background:rgba(192,57,43,.1);color:var(--danger);border:1px solid rgba(192,57,43,.25);}
+.btn-danger:hover{background:var(--danger);color:white;}
+.btn-toggle-on{background:rgba(39,174,96,.1);color:var(--success);border:1px solid rgba(39,174,96,.25);}
+.btn-toggle-on:hover{background:var(--success);color:white;}
+.btn-toggle-off{background:rgba(192,57,43,.1);color:var(--danger);border:1px solid rgba(192,57,43,.25);}
+.btn-toggle-off:hover{background:var(--danger);color:white;}
 
-/* ── IMAGE PREVIEW ──────────────────────── */
-.img-preview{
-  width:100%;max-height:200px;
-  object-fit:cover;border-radius:6px;
-  border:1px solid var(--sable2);
-  margin-top:8px;display:none;
-}
+/* ── ALERTS ─────────────────────────────────────────── */
+.alert{padding:12px 16px;border-radius:6px;font-size:13px;font-weight:500;margin-bottom:16px;display:none;}
+.alert.ok {background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.3);color:#1a6b3c;}
+.alert.err{background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);color:#8b2500;}
 
-/* ── ARTICLES LIST ──────────────────────── */
-.articles-list{max-width:720px;}
+/* ── ARTICLES LIST ──────────────────────────────────── */
+.art-list{max-width:780px;}
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;
+  border:1.5px solid var(--sable2);background:var(--white);color:var(--muted);transition:all .15s;}
+.filter-btn.on{background:var(--foret);border-color:var(--foret);color:var(--or2);}
+.filter-btn:hover:not(.on){border-color:var(--or);color:var(--or);}
 
-.article-row{
-  background:var(--white);
-  border:1px solid var(--sable2);
-  border-radius:var(--r);
-  padding:16px;margin-bottom:12px;
-  display:flex;gap:14px;align-items:flex-start;
-}
+.art-row{background:var(--white);border:1px solid var(--sable2);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;}
+.art-row.manual{border-left:3px solid var(--or);}
+.art-row.scraped{border-left:3px solid var(--vert);}
+.art-body{flex:1;}
+.art-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;
+  color:var(--foret);margin-bottom:3px;line-height:1.3;}
+.art-meta{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.5px;}
+.art-type{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px;}
+.art-type.manual{background:rgba(201,150,58,.15);color:var(--or);}
+.art-type.scraped{background:rgba(0,154,68,.1);color:var(--vert);}
+.art-type.intl{background:rgba(0,56,147,.1);color:var(--bleu);}
+.art-actions{display:flex;gap:6px;flex-shrink:0;}
 
-.article-row-body{flex:1;}
-.article-row-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:17px;font-weight:700;
-  color:var(--foret);margin-bottom:4px;
-}
-.article-row-meta{
-  font-family:'DM Mono',monospace;font-size:9px;
-  color:var(--muted);letter-spacing:0.5px;
-}
-.article-row-fb{
-  font-size:11px;color:var(--vert);font-weight:600;
-}
+/* ── SOURCES TABLE ──────────────────────────────────── */
+.sources-wrap{max-width:780px;}
+.src-table{background:var(--white);border-radius:var(--r);border:1px solid var(--sable2);overflow:hidden;margin-bottom:24px;}
+.src-table table{width:100%;border-collapse:collapse;}
+.src-table th{background:var(--foret);color:var(--or2);font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 14px;text-align:left;}
+.src-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--sable2);}
+.src-table tr:last-child td{border-bottom:none;}
+.src-table tr.disabled td{opacity:.45;}
+.src-type-badge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:10px;font-weight:600;}
+.src-type-badge.gabon{background:rgba(0,154,68,.1);color:var(--vert);}
+.src-type-badge.intl {background:rgba(0,56,147,.1);color:var(--bleu);}
+.src-status{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;}
+.src-status.on{color:var(--success);}
+.src-status.off{color:var(--danger);}
 
-/* ── ALERT ──────────────────────────────── */
-.alert{
-  padding:12px 16px;border-radius:6px;
-  font-size:13px;font-weight:500;
-  margin-bottom:16px;display:none;
-}
-.alert.success{background:rgba(39,174,96,0.12);border:1px solid rgba(39,174,96,0.3);color:#1a6b3c;}
-.alert.error  {background:rgba(192,57,43,0.12); border:1px solid rgba(192,57,43,0.3); color:#8b2500;}
+/* Add source form */
+.add-source-form{background:var(--white);border:1px solid var(--sable2);border-radius:var(--r);padding:24px;max-width:780px;}
+.add-source-form h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;
+  color:var(--foret);margin-bottom:16px;}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:600px){.fields-grid{grid-template-columns:1fr;}}
 
-/* ── SOURCES TABLE ──────────────────────── */
-.sources-table{
-  background:var(--white);border-radius:var(--r);
-  border:1px solid var(--sable2);overflow:hidden;
-  max-width:720px;
-}
-.sources-table table{width:100%;border-collapse:collapse;}
-.sources-table th{
-  background:var(--foret);color:var(--or2);
-  font-family:'DM Mono',monospace;font-size:9px;
-  letter-spacing:1.5px;text-transform:uppercase;
-  padding:10px 16px;text-align:left;
-}
-.sources-table td{
-  padding:12px 16px;font-size:13px;
-  border-bottom:1px solid var(--sable2);
-}
-.sources-table tr:last-child td{border-bottom:none;}
-.src-type{
-  font-family:'DM Mono',monospace;font-size:9px;
-  padding:2px 8px;border-radius:10px;font-weight:600;
-}
-.src-type.gabon{background:rgba(0,154,68,0.1);color:var(--vert);}
-.src-type.intl {background:rgba(0,56,147,0.1);color:var(--bleu);}
+/* ── ACTIONS ────────────────────────────────────────── */
+.actions-grid{display:flex;flex-direction:column;gap:12px;max-width:420px;}
 
-/* ── SPINNER ────────────────────────────── */
-.spinner{
-  width:14px;height:14px;
-  border:2px solid rgba(201,150,58,0.3);
-  border-top-color:var(--foret);
-  border-radius:50%;animation:spin 0.7s linear infinite;
-  display:inline-block;
-}
-.spinner.white{border-color:rgba(255,255,255,0.3);border-top-color:white;}
-@keyframes spin{to{transform:rotate(360deg);}}
+/* ── SPINNER ────────────────────────────────────────── */
+.spin{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:white;border-radius:50%;animation:sp .7s linear infinite;display:inline-block;}
+@keyframes sp{to{transform:rotate(360deg);}}
 
-/* ── RESPONSIVE ─────────────────────────── */
+/* ── RESPONSIVE ─────────────────────────────────────── */
 @media(max-width:640px){
   .sidebar{display:none;}
-  .content{padding:16px;}
+  .content{padding:14px;}
   .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .top-bar{padding:0 14px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ LOGIN ════════════════════════════════ -->
+<!-- LOGIN -->
 <div class="login-wrap" id="login-wrap">
   <div class="login-card">
     <div class="login-logo">Gabon <span>Phare</span></div>
     <div class="login-sub">Espace Administration</div>
-
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="login-email" placeholder="admin@gabonphare.com" />
-    </div>
-    <div class="field">
-      <label>Mot de passe</label>
-      <input type="password" id="login-pwd" placeholder="••••••••"
-             onkeydown="if(event.key==='Enter') doLogin()" />
-    </div>
-    <button class="btn-primary" id="login-btn" onclick="doLogin()">
-      Se connecter
-    </button>
-    <div class="login-error" id="login-error"></div>
+    <div class="lfield"><label>Email</label>
+      <input type="email" id="l-email" placeholder="admin@gabonphare.com"/></div>
+    <div class="lfield"><label>Mot de passe</label>
+      <input type="password" id="l-pwd" placeholder="••••••••"
+             onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="btn-login" id="l-btn" onclick="doLogin()">Se connecter</button>
+    <div class="lerr" id="l-err"></div>
   </div>
 </div>
 
-<!-- ══ DASHBOARD ════════════════════════════ -->
+<!-- DASHBOARD -->
 <div class="dashboard" id="dashboard">
-
   <div class="flag-bar"></div>
-
   <div class="top-bar">
-    <div class="top-logo">
-      Gabon <span>Phare</span>
-      <em>Admin</em>
-    </div>
+    <div class="top-logo">Gabon <span>Phare</span><em>Admin</em></div>
     <div class="top-right">
-      <span class="admin-email" id="admin-email-display">—</span>
-      <button class="btn-logout" onclick="doLogout()">Déconnexion</button>
+      <span class="admin-mail" id="a-mail">—</span>
+      <button class="btn-out" onclick="doLogout()">Déconnexion</button>
     </div>
   </div>
 
-  <div class="main-layout">
-
+  <div class="layout">
     <!-- Sidebar -->
     <nav class="sidebar">
-      <div class="nav-section">Navigation</div>
-      <div class="nav-item active" onclick="showSection('stats',this)">
-        <span class="ni">📊</span> Tableau de bord
-      </div>
-      <div class="nav-item" onclick="showSection('write',this)">
-        <span class="ni">✏️</span> Écrire un article
-      </div>
-      <div class="nav-item" onclick="showSection('articles',this)">
-        <span class="ni">📰</span> Mes articles
-      </div>
-      <div class="nav-section">Système</div>
-      <div class="nav-item" onclick="showSection('sources',this)">
-        <span class="ni">🔗</span> Sources actives
-      </div>
-      <div class="nav-item" onclick="showSection('actions',this)">
-        <span class="ni">⚡</span> Actions rapides
-      </div>
+      <div class="nav-sec">Navigation</div>
+      <div class="nav-item on" onclick="go('stats',this)"><span class="ic">📊</span>Tableau de bord</div>
+      <div class="nav-item"   onclick="go('write',this)"><span class="ic">✏️</span>Écrire un article</div>
+      <div class="nav-item"   onclick="go('articles',this)"><span class="ic">📰</span>Articles du site</div>
+      <div class="nav-sec">Système</div>
+      <div class="nav-item"   onclick="go('sources',this)"><span class="ic">🔗</span>Gérer les sources</div>
+      <div class="nav-item"   onclick="go('actions',this)"><span class="ic">⚡</span>Actions rapides</div>
     </nav>
 
-    <!-- Content -->
     <div class="content">
 
-      <!-- ── STATS ─────────────────────────── -->
-      <div class="section active" id="sec-stats">
-        <div class="section-title">📊 Tableau de bord</div>
+      <!-- STATS -->
+      <div class="sec on" id="sec-stats">
+        <div class="sec-title">📊 Tableau de bord</div>
         <div class="stats-grid" id="stats-grid">
-          <div class="stat-card"><div class="stat-label">Chargement...</div></div>
+          <div class="stat-card"><div class="stat-lbl">Chargement...</div></div>
         </div>
       </div>
 
-      <!-- ── ÉCRIRE ─────────────────────────── -->
-      <div class="section" id="sec-write">
-        <div class="section-title">✏️ Écrire un article</div>
-
-        <div class="alert success" id="write-success"></div>
-        <div class="alert error"   id="write-error"></div>
-
-        <div class="article-form">
-          <div class="field">
-            <label>Titre de l'article *</label>
-            <input type="text" id="art-title"
-                   placeholder="Ex: Le gouvernement annonce une nouvelle mesure économique" />
+      <!-- ÉCRIRE -->
+      <div class="sec" id="sec-write">
+        <div class="sec-title">✏️ Écrire un article</div>
+        <div class="alert ok"  id="w-ok"></div>
+        <div class="alert err" id="w-err"></div>
+        <div class="form-wrap">
+          <div class="field"><label>Titre *</label>
+            <input type="text" id="a-title" placeholder="Titre de l'article"/></div>
+          <div class="field"><label>Contenu *</label>
+            <textarea id="a-content" placeholder="Rédigez votre article ici..."></textarea></div>
+          <div class="field"><label>Image (URL)</label>
+            <input type="url" id="a-img" placeholder="https://..." oninput="prevImg(this.value)"/>
+            <div class="field-hint">URL d'une image qui s'affichera sur le site</div>
+            <img class="img-prev" id="img-prev" alt="Aperçu"/>
           </div>
-
-          <div class="field">
-            <label>Contenu / Corps de l'article *</label>
-            <textarea id="art-content"
-                      placeholder="Rédigez votre article ici. Ce texte apparaîtra comme résumé sur le site et sera publié sur Facebook..."></textarea>
-          </div>
-
-          <div class="field">
-            <label>Image (URL)</label>
-            <input type="url" id="art-image"
-                   placeholder="https://exemple.com/image.jpg"
-                   oninput="previewImage(this.value)" />
-            <div class="field-hint">Colle l'URL d'une image. Elle s'affichera sur le site.</div>
-            <img class="img-preview" id="img-preview" alt="Aperçu" />
-          </div>
-
-          <div class="field">
-            <label>Catégorie</label>
-            <select id="art-category">
-              <option value="Actualité">Actualité</option>
-              <option value="Politique">Politique</option>
-              <option value="Économie">Économie</option>
-              <option value="Sport">Sport</option>
-              <option value="Société">Société</option>
-              <option value="Santé">Santé</option>
-              <option value="Éducation">Éducation</option>
-              <option value="Culture">Culture</option>
-              <option value="International">International</option>
-              <option value="Éditorial">Éditorial</option>
+          <div class="field"><label>Catégorie</label>
+            <select id="a-cat">
+              <option>Actualité</option><option>Politique</option><option>Économie</option>
+              <option>Sport</option><option>Société</option><option>Santé</option>
+              <option>Éducation</option><option>Culture</option><option>International</option>
+              <option>Éditorial</option>
             </select>
           </div>
-
           <div class="field">
             <div class="toggle-row">
-              <input type="checkbox" id="art-fb" checked />
-              <label for="art-fb">📘 Publier aussi sur Facebook automatiquement</label>
+              <input type="checkbox" id="a-fb" checked/>
+              <label for="a-fb">📘 Publier aussi sur Facebook</label>
             </div>
           </div>
-
-          <button class="btn-publish" id="publish-btn" onclick="publishArticle()">
-            🚀 Publier l'article
-          </button>
+          <button class="btn-pub" id="pub-btn" onclick="publishArticle()">🚀 Publier l'article</button>
         </div>
       </div>
 
-      <!-- ── MES ARTICLES ───────────────────── -->
-      <div class="section" id="sec-articles">
-        <div class="section-title">📰 Mes articles publiés</div>
-        <div class="articles-list" id="articles-list">
-          <div style="color:var(--muted);font-size:13px;">Chargement...</div>
+      <!-- ARTICLES -->
+      <div class="sec" id="sec-articles">
+        <div class="sec-title">📰 Articles du site</div>
+        <div class="art-list">
+          <div class="filter-bar">
+            <button class="filter-btn on" onclick="filterArts('all',this)">Tous</button>
+            <button class="filter-btn"    onclick="filterArts('manual',this)">✏️ Gabon Phare</button>
+            <button class="filter-btn"    onclick="filterArts('gabon',this)">🇬🇦 Gabonais</button>
+            <button class="filter-btn"    onclick="filterArts('international',this)">🌍 International</button>
+          </div>
+          <div id="arts-list"><div style="color:var(--muted);font-size:13px;">Chargement...</div></div>
         </div>
       </div>
 
-      <!-- ── SOURCES ────────────────────────── -->
-      <div class="section" id="sec-sources">
-        <div class="section-title">🔗 Sources actives</div>
-        <div class="sources-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Type</th>
-                <th>Flux RSS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Gabon Media Time</td><td><span class="src-type gabon">Gabonais</span></td><td style="font-size:11px;color:var(--muted);">gabonmediatime.com/feed</td></tr>
-              <tr><td>Gabon Review</td><td><span class="src-type gabon">Gabonais</span></td><td style="font-size:11px;color:var(--muted);">gabonreview.com/feed</td></tr>
-              <tr><td>Gabon Actu</td><td><span class="src-type gabon">Gabonais</span></td><td style="font-size:11px;color:var(--muted);">gabonactu.com/feed</td></tr>
-              <tr><td>RFI Afrique</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">rfi.fr/fr/afrique/rss</td></tr>
-              <tr><td>France 24</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">france24.com/fr/afrique/rss</td></tr>
-              <tr><td>Jeune Afrique</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">jeuneafrique.com/feed</td></tr>
-              <tr><td>BBC Afrique</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">feeds.bbci.co.uk/afrique</td></tr>
-              <tr><td>Le Monde Afrique</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">lemonde.fr/afrique/rss</td></tr>
-              <tr><td>Brut Afrique</td><td><span class="src-type intl">International</span></td><td style="font-size:11px;color:var(--muted);">brut.media/fr/rss</td></tr>
-            </tbody>
-          </table>
+      <!-- SOURCES -->
+      <div class="sec" id="sec-sources">
+        <div class="sec-title">🔗 Gérer les sources</div>
+        <div class="sources-wrap">
+          <div class="alert ok"  id="src-ok"></div>
+          <div class="alert err" id="src-err"></div>
+
+          <!-- Liste des sources -->
+          <div class="src-table" id="src-table">
+            <table>
+              <thead><tr><th>Source</th><th>Type</th><th>Statut</th><th>Action</th></tr></thead>
+              <tbody id="src-tbody"><tr><td colspan="4" style="color:var(--muted);font-size:13px;padding:16px;">Chargement...</td></tr></tbody>
+            </table>
+          </div>
+
+          <!-- Ajouter une source -->
+          <div class="add-source-form">
+            <h3>➕ Ajouter une nouvelle source</h3>
+            <div class="alert ok"  id="add-src-ok"></div>
+            <div class="alert err" id="add-src-err"></div>
+            <div class="fields-grid">
+              <div class="field"><label>ID unique *</label>
+                <input type="text" id="ns-id" placeholder="ex: gaboneco" /></div>
+              <div class="field"><label>Nom affiché *</label>
+                <input type="text" id="ns-name" placeholder="ex: Gabon Eco"/></div>
+              <div class="field"><label>Type *</label>
+                <select id="ns-type">
+                  <option value="gabon">Gabonais</option>
+                  <option value="international">International</option>
+                </select>
+              </div>
+              <div class="field"><label>URL du flux RSS *</label>
+                <input type="url" id="ns-rss" placeholder="https://site.com/feed/"/></div>
+              <div class="field"><label>URL du site (scraping)</label>
+                <input type="url" id="ns-url" placeholder="https://site.com"/></div>
+              <div class="field"><label>Sélecteur article CSS</label>
+                <input type="text" id="ns-art" placeholder="article" value="article"/></div>
+              <div class="field"><label>Sélecteur titre CSS</label>
+                <input type="text" id="ns-tit" placeholder="h2 a" value="h2 a"/></div>
+              <div class="field"><label>Sélecteur contenu CSS</label>
+                <input type="text" id="ns-con" placeholder=".entry-content" value=".entry-content"/></div>
+            </div>
+            <button class="btn-pub" style="margin-top:8px;" onclick="addSource()">➕ Ajouter la source</button>
+          </div>
         </div>
       </div>
 
-      <!-- ── ACTIONS RAPIDES ─────────────────── -->
-      <div class="section" id="sec-actions">
-        <div class="section-title">⚡ Actions rapides</div>
-        <div style="display:flex;flex-direction:column;gap:12px;max-width:400px;">
-
-          <button class="btn-publish" onclick="triggerAction('cache/refresh','Rafraîchissement du cache lancé')">
+      <!-- ACTIONS -->
+      <div class="sec" id="sec-actions">
+        <div class="sec-title">⚡ Actions rapides</div>
+        <div class="actions-grid">
+          <button class="btn-pub" onclick="action('cache/refresh','Rafraîchissement lancé en arrière-plan')">
             🔄 Forcer le rafraîchissement des articles
           </button>
-
-          <button class="btn-publish" onclick="triggerAction('facebook/publish-now','Publication Facebook lancée')">
+          <button class="btn-pub" onclick="action('facebook/publish-now','Publication Facebook lancée')">
             📘 Publier maintenant sur Facebook
           </button>
-
-          <button class="btn-publish" onclick="triggerAction('recap/generate-now','Génération du récap lancée — disponible dans 60 secondes')">
+          <button class="btn-pub" onclick="action('recap/generate-now','Génération du récap lancée — disponible dans 60s')">
             📋 Générer le récap de la semaine
           </button>
-
-          <div class="alert success" id="action-success"></div>
-          <div class="alert error"   id="action-error"></div>
         </div>
+        <div class="alert ok"  id="act-ok" style="margin-top:16px;max-width:420px;"></div>
+        <div class="alert err" id="act-err" style="margin-top:16px;max-width:420px;"></div>
       </div>
 
     </div><!-- /content -->
-  </div><!-- /main-layout -->
+  </div><!-- /layout -->
 </div><!-- /dashboard -->
 
 <script>
-const BACKEND = 'https://capitalk241-backend.onrender.com';
-let TOKEN = localStorage.getItem('gp_admin_token') || '';
-let ADMIN_EMAIL = localStorage.getItem('gp_admin_email') || '';
+const B = 'https://capitalk241-backend.onrender.com';
+let TOKEN = localStorage.getItem('gp_tok') || '';
+let EMAIL = localStorage.getItem('gp_mail') || '';
 
-// ── AUTO-LOGIN ───────────────────────────────
+// State articles
+let allCacheArts = [];
+let allManualArts = [];
+let artFilter = 'all';
+
 window.onload = () => {
-  if (TOKEN) {
-    showDashboard();
-    loadStats();
-  }
+  if (TOKEN) { showDash(); loadStats(); }
 };
 
-// ── LOGIN ────────────────────────────────────
+// ── AUTH ────────────────────────────────────────────
 async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pwd   = document.getElementById('login-pwd').value;
-  const btn   = document.getElementById('login-btn');
-  const err   = document.getElementById('login-error');
-
-  if (!email || !pwd) { showErr(err, 'Remplis tous les champs'); return; }
-
+  const email = document.getElementById('l-email').value.trim();
+  const pwd   = document.getElementById('l-pwd').value;
+  const btn   = document.getElementById('l-btn');
+  const err   = document.getElementById('l-err');
+  if (!email || !pwd) { showErr(err,'Remplis tous les champs'); return; }
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner white"></span>';
+  btn.innerHTML = '<span class="spin"></span>';
   err.style.display = 'none';
-
   try {
-    const r = await api('POST', '/admin/login', { email, password: pwd });
-    TOKEN       = r.token;
-    ADMIN_EMAIL = r.email;
-    localStorage.setItem('gp_admin_token', TOKEN);
-    localStorage.setItem('gp_admin_email', ADMIN_EMAIL);
-    showDashboard();
-    loadStats();
+    const r = await req('POST', '/admin/login', {email, password: pwd});
+    TOKEN = r.token; EMAIL = r.email;
+    localStorage.setItem('gp_tok', TOKEN);
+    localStorage.setItem('gp_mail', EMAIL);
+    showDash(); loadStats();
   } catch(e) {
     showErr(err, e.message || 'Email ou mot de passe incorrect');
-    btn.disabled = false;
-    btn.textContent = 'Se connecter';
+    btn.disabled = false; btn.textContent = 'Se connecter';
   }
 }
 
 function doLogout() {
-  api('POST', '/admin/logout').catch(()=>{});
-  TOKEN = ''; ADMIN_EMAIL = '';
-  localStorage.removeItem('gp_admin_token');
-  localStorage.removeItem('gp_admin_email');
-  document.getElementById('dashboard').style.display = 'none';
-  document.getElementById('login-wrap').style.display = 'flex';
+  req('POST','/admin/logout').catch(()=>{});
+  TOKEN=''; EMAIL='';
+  localStorage.removeItem('gp_tok'); localStorage.removeItem('gp_mail');
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-wrap').style.display='flex';
 }
 
-function showDashboard() {
-  document.getElementById('login-wrap').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'block';
-  document.getElementById('admin-email-display').textContent = ADMIN_EMAIL;
+function showDash() {
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('a-mail').textContent = EMAIL;
 }
 
-// ── STATS ────────────────────────────────────
+// ── NAV ─────────────────────────────────────────────
+function go(name, btn) {
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('on'));
+  document.getElementById('sec-'+name).classList.add('on');
+  btn.classList.add('on');
+  if (name==='stats')    loadStats();
+  if (name==='articles') loadArticles();
+  if (name==='sources')  loadSources();
+}
+
+// ── STATS ────────────────────────────────────────────
 async function loadStats() {
   try {
-    const s = await api('GET', '/admin/stats');
-    const grid = document.getElementById('stats-grid');
-    grid.innerHTML = `
-      <div class="stat-card accent">
-        <div class="stat-label">Articles en cache</div>
-        <div class="stat-value">${s.articles_in_cache}</div>
+    const s = await req('GET', '/admin/stats');
+    document.getElementById('stats-grid').innerHTML = `
+      <div class="stat-card dark">
+        <div class="stat-lbl">Articles en cache</div>
+        <div class="stat-val">${s.articles_in_cache}</div>
         <div class="stat-sub">${s.gabon_articles} gabonais · ${s.intl_articles} intl</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Publications FB aujourd'hui</div>
-        <div class="stat-value">${s.fb_posts_today}</div>
+        <div class="stat-lbl">Publications FB aujourd'hui</div>
+        <div class="stat-val">${s.fb_posts_today}</div>
         <div class="stat-sub">Reste ${s.fb_posts_remaining} sur ${s.fb_daily_limit}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Âge du cache</div>
-        <div class="stat-value">${s.cache_age_minutes ?? '—'}</div>
+        <div class="stat-lbl">Âge du cache</div>
+        <div class="stat-val">${s.cache_age_minutes ?? '—'}</div>
         <div class="stat-sub">minutes</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Récap semaine</div>
-        <div class="stat-value">${s.recap_available ? '✓' : '—'}</div>
+        <div class="stat-lbl">Récap semaine</div>
+        <div class="stat-val">${s.recap_available ? '✓' : '—'}</div>
         <div class="stat-sub">${s.recap_available ? 'Disponible' : 'Dimanche 16h30'}</div>
       </div>`;
+  } catch(e) { console.warn(e); }
+}
+
+// ── ARTICLES ─────────────────────────────────────────
+async function loadArticles() {
+  document.getElementById('arts-list').innerHTML = '<div style="color:var(--muted);font-size:13px;">Chargement...</div>';
+  try {
+    // Charge articles du cache + articles manuels
+    const [cacheRes, manualRes] = await Promise.all([
+      req('GET', '/news'),
+      req('GET', '/admin/articles'),
+    ]);
+    allCacheArts   = cacheRes.articles || [];
+    allManualArts  = manualRes.articles || [];
+    renderArticles();
   } catch(e) {
-    console.warn('Stats error:', e);
+    document.getElementById('arts-list').innerHTML = '<div style="color:red;font-size:13px;">Erreur de chargement</div>';
   }
 }
 
-// ── NAVIGATION ───────────────────────────────
-function showSection(name, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('sec-'+name).classList.add('active');
-  btn.classList.add('active');
-
-  if (name === 'stats')    loadStats();
-  if (name === 'articles') loadArticles();
+function filterArts(f, btn) {
+  artFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderArticles();
 }
 
-// ── PUBLIER ARTICLE ──────────────────────────
-function previewImage(url) {
-  const img = document.getElementById('img-preview');
-  if (url && url.startsWith('http')) {
-    img.src = url;
-    img.style.display = 'block';
-    img.onerror = () => { img.style.display = 'none'; };
+function renderArticles() {
+  const list = document.getElementById('arts-list');
+  let arts = [];
+
+  if (artFilter === 'manual') {
+    arts = allManualArts.map(a => ({...a, _type:'manual'}));
+  } else if (artFilter === 'gabon') {
+    arts = allCacheArts.filter(a=>a.source_type==='gabon' && !a.manual);
+  } else if (artFilter === 'international') {
+    arts = allCacheArts.filter(a=>a.source_type==='international');
   } else {
-    img.style.display = 'none';
+    // Tout — manuels en premier
+    const manual = allManualArts.map(a=>({...a,_type:'manual'}));
+    const scraped = allCacheArts.filter(a=>!a.manual);
+    arts = [...manual, ...scraped];
   }
+
+  if (!arts.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:13px;">Aucun article pour ce filtre.</div>';
+    return;
+  }
+
+  list.innerHTML = arts.slice(0,50).map(a => {
+    const isManual = a._type === 'manual' || a.manual;
+    const typeLabel = isManual ? 'manual' : (a.source_type === 'international' ? 'intl' : 'scraped');
+    const typeName  = isManual ? '✏️ Gabon Phare' : (a.source_type === 'international' ? '🌍 Intl' : '🇬🇦 Gabonais');
+    const date = a.created_at
+      ? new Date(a.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})
+      : (a.time_ago || 'Récent');
+
+    const deleteBtn = isManual
+      ? `<button class="btn-sm btn-danger" onclick="deleteArticle(${a.id},'${a.title.replace(/'/g,"\\'")}')">🗑 Supprimer</button>`
+      : `<button class="btn-sm btn-danger" onclick="removeFromCache('${a.title.replace(/'/g,"\\'")}')">✕ Retirer du site</button>`;
+
+    return `
+      <div class="art-row ${isManual ? 'manual' : 'scraped'}">
+        <div class="art-body">
+          <div class="art-title">${a.title}</div>
+          <div class="art-meta">
+            <span class="art-type ${typeLabel}">${typeName}</span>
+            ${a.source_name || ''} · ${date}
+          </div>
+        </div>
+        <div class="art-actions">${deleteBtn}</div>
+      </div>`;
+  }).join('');
+}
+
+async function deleteArticle(id, title) {
+  if (!confirm(`Supprimer définitivement "${title}" ?`)) return;
+  try {
+    await req('DELETE', `/admin/article/${id}`);
+    allManualArts = allManualArts.filter(a=>a.id!==id);
+    renderArticles();
+  } catch(e) { alert('Erreur: '+e.message); }
+}
+
+async function removeFromCache(title) {
+  if (!confirm(`Retirer "${title}" du site (jusqu'au prochain rafraîchissement) ?`)) return;
+  try {
+    await req('DELETE', `/admin/cache/article?title=${encodeURIComponent(title)}`);
+    allCacheArts = allCacheArts.filter(a=>a.title!==title);
+    renderArticles();
+  } catch(e) { alert('Erreur: '+e.message); }
+}
+
+// ── SOURCES ──────────────────────────────────────────
+async function loadSources() {
+  const tbody = document.getElementById('src-tbody');
+  tbody.innerHTML = '<tr><td colspan="4" style="color:var(--muted);padding:14px;">Chargement...</td></tr>';
+  try {
+    const r = await req('GET', '/admin/sources');
+    tbody.innerHTML = r.sources.map(s => `
+      <tr class="${s.enabled?'':'disabled'}">
+        <td>
+          <strong>${s.name}</strong>
+          ${!s.builtin ? '<span style="font-size:10px;color:var(--or);margin-left:6px;">custom</span>' : ''}
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${s.rss}</div>
+        </td>
+        <td><span class="src-type-badge ${s.type==='gabon'?'gabon':'intl'}">${s.type==='gabon'?'Gabonais':'International'}</span></td>
+        <td><span class="src-status ${s.enabled?'on':'off'}">${s.enabled?'● Actif':'○ Inactif'}</span></td>
+        <td>
+          <div style="display:flex;gap:6px;">
+            <button class="btn-sm ${s.enabled?'btn-toggle-off':'btn-toggle-on'}"
+              onclick="toggleSource('${s.id}',this)">
+              ${s.enabled ? 'Désactiver' : 'Activer'}
+            </button>
+            ${!s.builtin ? `<button class="btn-sm btn-danger" onclick="deleteSource('${s.id}')">🗑</button>` : ''}
+          </div>
+        </td>
+      </tr>`).join('');
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="4" style="color:red;">Erreur: ${e.message}</td></tr>`;
+  }
+}
+
+async function toggleSource(id, btn) {
+  const ok  = document.getElementById('src-ok');
+  const err = document.getElementById('src-err');
+  try {
+    const r = await req('PATCH', `/admin/sources/${id}/toggle`);
+    const msg = r.enabled ? `✅ ${id} activée` : `⏸ ${id} désactivée`;
+    showOk(ok, msg);
+    loadSources();
+  } catch(e) { showErr(err, e.message); }
+}
+
+async function addSource() {
+  const ok  = document.getElementById('add-src-ok');
+  const err = document.getElementById('add-src-err');
+  const data = {
+    id:               document.getElementById('ns-id').value.trim(),
+    name:             document.getElementById('ns-name').value.trim(),
+    source_type:      document.getElementById('ns-type').value,
+    rss:              document.getElementById('ns-rss').value.trim(),
+    scrape_url:       document.getElementById('ns-url').value.trim(),
+    article_selector: document.getElementById('ns-art').value.trim(),
+    title_selector:   document.getElementById('ns-tit').value.trim(),
+    content_selector: document.getElementById('ns-con').value.trim(),
+  };
+  if (!data.id || !data.name || !data.rss) { showErr(err, 'ID, Nom et RSS sont obligatoires'); return; }
+  try {
+    await req('POST', '/admin/sources', data);
+    showOk(ok, `✅ Source "${data.name}" ajoutée — elle sera scrapée à la prochaine heure`);
+    ['ns-id','ns-name','ns-rss','ns-url'].forEach(id => document.getElementById(id).value='');
+    loadSources();
+  } catch(e) { showErr(err, e.message); }
+}
+
+async function deleteSource(id) {
+  if (!confirm(`Supprimer définitivement la source "${id}" ?`)) return;
+  try {
+    await req('DELETE', `/admin/sources/${id}`);
+    loadSources();
+  } catch(e) { alert('Erreur: '+e.message); }
+}
+
+// ── PUBLIER ARTICLE ──────────────────────────────────
+function prevImg(url) {
+  const img = document.getElementById('img-prev');
+  if (url && url.startsWith('http')) {
+    img.src=url; img.style.display='block';
+    img.onerror=()=>img.style.display='none';
+  } else { img.style.display='none'; }
 }
 
 async function publishArticle() {
-  const title    = document.getElementById('art-title').value.trim();
-  const content  = document.getElementById('art-content').value.trim();
-  const image    = document.getElementById('art-image').value.trim();
-  const category = document.getElementById('art-category').value;
-  const postFb   = document.getElementById('art-fb').checked;
-  const btn      = document.getElementById('publish-btn');
-  const ok       = document.getElementById('write-success');
-  const err      = document.getElementById('write-error');
-
-  ok.style.display = 'none';
-  err.style.display = 'none';
-
-  if (!title) { showErr(err, 'Le titre est obligatoire'); return; }
-  if (!content) { showErr(err, 'Le contenu est obligatoire'); return; }
-
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner white"></span> Publication en cours...';
-
+  const title   = document.getElementById('a-title').value.trim();
+  const content = document.getElementById('a-content').value.trim();
+  const image   = document.getElementById('a-img').value.trim();
+  const cat     = document.getElementById('a-cat').value;
+  const fb      = document.getElementById('a-fb').checked;
+  const btn     = document.getElementById('pub-btn');
+  const ok      = document.getElementById('w-ok');
+  const err     = document.getElementById('w-err');
+  ok.style.display='none'; err.style.display='none';
+  if (!title)   { showErr(err,'Le titre est obligatoire'); return; }
+  if (!content) { showErr(err,'Le contenu est obligatoire'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Publication...';
   try {
-    const r = await api('POST', '/admin/article', {
-      title, content, image_url: image, category, post_to_fb: postFb
-    });
-
+    const r = await req('POST', '/admin/article', {title, content, image_url:image, category:cat, post_to_fb:fb});
     let msg = '✅ Article publié sur le site !';
     if (r.on_facebook) msg += ' Et posté sur Facebook.';
-    else if (postFb)   msg += ' (Facebook non publié — vérifie le token)';
-
     showOk(ok, msg);
-
-    // Réinitialise le formulaire
-    document.getElementById('art-title').value   = '';
-    document.getElementById('art-content').value = '';
-    document.getElementById('art-image').value   = '';
-    document.getElementById('img-preview').style.display = 'none';
-    document.getElementById('art-category').value = 'Actualité';
-    document.getElementById('art-fb').checked = true;
-
-  } catch(e) {
-    showErr(err, e.message || 'Erreur lors de la publication');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '🚀 Publier l\'article';
+    ['a-title','a-content','a-img'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('img-prev').style.display='none';
+  } catch(e) { showErr(err, e.message||'Erreur lors de la publication'); }
+  btn.disabled=false; btn.innerHTML='🚀 Publier l\'article';
 }
 
-// ── LISTE ARTICLES ───────────────────────────
-async function loadArticles() {
-  const list = document.getElementById('articles-list');
-  list.innerHTML = '<div style="color:var(--muted);font-size:13px;">Chargement...</div>';
-  try {
-    const r = await api('GET', '/admin/articles');
-    if (!r.articles.length) {
-      list.innerHTML = '<div style="color:var(--muted);font-size:13px;">Aucun article publié pour le moment.</div>';
-      return;
-    }
-    list.innerHTML = r.articles.map(a => `
-      <div class="article-row">
-        <div class="article-row-body">
-          <div class="article-row-title">${a.title}</div>
-          <div class="article-row-meta">
-            ${a.category} · ${new Date(a.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}
-            ${a.fb_post_id ? '<span class="article-row-fb"> · ✓ Facebook</span>' : ''}
-          </div>
-        </div>
-      </div>`).join('');
-  } catch(e) {
-    list.innerHTML = '<div style="color:red;font-size:13px;">Erreur de chargement</div>';
-  }
+// ── ACTIONS RAPIDES ──────────────────────────────────
+async function action(endpoint, msg) {
+  const ok  = document.getElementById('act-ok');
+  const err = document.getElementById('act-err');
+  ok.style.display='none'; err.style.display='none';
+  try { await req('POST','/'+endpoint); showOk(ok,msg); }
+  catch(e) { showErr(err,e.message||'Erreur'); }
 }
 
-// ── ACTIONS RAPIDES ──────────────────────────
-async function triggerAction(endpoint, successMsg) {
-  const ok  = document.getElementById('action-success');
-  const err = document.getElementById('action-error');
-  ok.style.display  = 'none';
-  err.style.display = 'none';
-  try {
-    await api('POST', '/'+endpoint);
-    showOk(ok, successMsg);
-  } catch(e) {
-    showErr(err, e.message || 'Erreur');
-  }
-}
-
-// ── API HELPER ───────────────────────────────
-async function api(method, path, body = null) {
+// ── API HELPER ───────────────────────────────────────
+async function req(method, path, body=null) {
   const opts = {
     method,
     headers: {
-      'Content-Type': 'application/json',
-      ...(TOKEN ? { 'Authorization': 'Bearer ' + TOKEN } : {})
+      'Content-Type':'application/json',
+      ...(TOKEN ? {'Authorization':'Bearer '+TOKEN} : {})
     }
   };
   if (body) opts.body = JSON.stringify(body);
-  const r = await fetch(BACKEND + path, opts);
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.detail || data.error || 'Erreur serveur');
-  return data;
+  const r = await fetch(B+path, opts);
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.detail || d.error || 'Erreur serveur');
+  return d;
 }
 
-function showOk(el, msg)  { el.textContent = msg; el.className = 'alert success'; el.style.display = 'block'; setTimeout(()=>el.style.display='none', 5000); }
-function showErr(el, msg) { el.textContent = msg; el.className = 'alert error';   el.style.display = 'block'; }
+function showOk(el,m){ el.textContent=m; el.className='alert ok'; el.style.display='block'; setTimeout(()=>el.style.display='none',5000); }
+function showErr(el,m){ el.textContent=m; el.className='alert err'; el.style.display='block'; }
 </script>
 </body>
 </html>
