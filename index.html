@@ -957,6 +957,8 @@ width:38px;height:38px;}
 <div id="toast"></div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+
 const BACKEND       = 'https://capitalk241-backend.onrender.com/news';
 const BACKEND_ABOUT = 'https://capitalk241-backend.onrender.com/about';
 const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à mettre à jour si Render change
@@ -1105,13 +1107,19 @@ async function loadAbout(){
       box.appendChild(el);
       return;
     }
-    let html = '';
+    box.innerHTML = '';
     if(d.image_url){
-      html += '<img class="about-img" src="'+d.image_url+'" alt="Gabon Phare" onerror="this.style.display='none'">';
+      const imgEl2 = document.createElement('img');
+      imgEl2.className = 'about-img';
+      imgEl2.src = d.image_url;
+      imgEl2.alt = 'Gabon Phare';
+      imgEl2.onerror = function(){ this.style.display='none'; };
+      box.appendChild(imgEl2);
     }
-    html += '<div class="about-text">'+d.text.replace(/
-/g,'<br>')+'</div>';
-    box.innerHTML = html;
+    const textDiv = document.createElement('div');
+    textDiv.className = 'about-text';
+    textDiv.innerHTML = d.text.replace(/\n/g,'<br>');
+    box.appendChild(textDiv);
   } catch(e){
     box.innerHTML = '<div class="state"><p>Impossible de charger le contenu.</p></div>';
   }
@@ -1153,6 +1161,8 @@ function toggleRecap() {
 renderChips();
 fetchData(false);   // chargement automatique au démarrage
 fetchRecap();       // charge le récap s'il existe
+
+}); // end DOMContentLoaded
 </script>
 </body>
 </html>
