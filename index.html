@@ -539,6 +539,82 @@ body {
 }
 
 /* ════════════════════════════════════
+   SOUS-ONGLETS GABON PHARE
+════════════════════════════════════ */
+.subtab-bar {
+  display: none;
+  background: rgba(201,150,58,0.06);
+  border-bottom: 1px solid rgba(201,150,58,0.15);
+}
+.subtab-bar.visible { display: block; }
+
+.subtab-inner {
+  max-width: 920px; margin: 0 auto; padding: 0 20px;
+  display: flex; gap: 0;
+}
+
+.stab {
+  padding: 10px 20px;
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  background: none; border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer; transition: all .2s;
+  letter-spacing: .3px;
+}
+.stab:hover { color: var(--or); }
+.stab.on { color: var(--or); border-bottom-color: var(--or); }
+
+/* ════════════════════════════════════
+   PAGE À PROPOS
+════════════════════════════════════ */
+.about-wrap {
+  max-width: 720px; margin: 0 auto;
+  display: none;
+}
+.about-wrap.visible { display: block; }
+
+.about-img {
+  width: 100%; max-height: 320px;
+  object-fit: cover; border-radius: var(--r);
+  margin-bottom: 24px;
+  border: 1px solid var(--sable2);
+}
+
+.about-text {
+  font-size: 15px; line-height: 2;
+  color: var(--encre);
+  white-space: pre-line;
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--sable2);
+  padding: 28px 32px;
+}
+
+.about-text p { margin-bottom: 16px; }
+
+.about-logo {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  background: var(--foret);
+  border-radius: var(--r);
+}
+.about-logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 900;
+  color: var(--ivoire);
+}
+.about-logo-name span { color: var(--or2); }
+.about-logo-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,150,58,.5);
+  margin-top: 3px;
+}
+
+/* ════════════════════════════════════
    CARTE ÉDITORIALE — Gabon Phare
 ════════════════════════════════════ */
 .card.editorial {
@@ -836,6 +912,14 @@ width:38px;height:38px;}
   <div class="chips-inner" id="chips"></div>
 </div>
 
+<!-- Sous-onglets Gabon Phare -->
+<div class="subtab-bar" id="subtab-bar">
+  <div class="subtab-inner">
+    <button class="stab on" onclick="setSubTab('articles',this)">📰 Articles</button>
+    <button class="stab"    onclick="setSubTab('about',this)">ℹ️ À propos</button>
+  </div>
+</div>
+
 <!-- ══ CONTENU ══════════════════════════════════════ -->
 <div class="main" id="recap-wrap" style="display:none; padding-bottom:0;">
   <div class="recap-section" id="recap-section">
@@ -855,6 +939,18 @@ width:38px;height:38px;}
   </div>
 </div>
 
+<div class="main about-wrap" id="about-wrap">
+  <div class="about-logo">
+    <div>
+      <div class="about-logo-name">Gabon <span>Phare</span></div>
+      <div class="about-logo-sub">L'actualité gabonaise en lumière</div>
+    </div>
+  </div>
+  <div id="about-content">
+    <div class="state"><div class="state-ico">💡</div><p>Chargement...</p></div>
+  </div>
+</div>
+
 <main class="main" id="main"></main>
 
 <div class="foot-flag"></div>
@@ -862,6 +958,7 @@ width:38px;height:38px;}
 
 <script>
 const BACKEND       = 'https://capitalk241-backend.onrender.com/news';
+const BACKEND_ABOUT = 'https://capitalk241-backend.onrender.com/about';
 const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à mettre à jour si Render change
 const PER_PAGE = 10;
 
@@ -942,11 +1039,66 @@ function showSkels(){
     </div>`).join('');
 }
 
+let subTab = 'articles'; // sous-onglet actif dans Gabon Phare
+
 function setView(v,btn){
-  view=v;src='all';page=1;
+  view=v;src='all';page=1;subTab='articles';
   document.querySelectorAll('.vtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+
+  // Affiche/cache la barre de sous-onglets
+  const subtabBar = document.getElementById('subtab-bar');
+  if(v==='editorial'){
+    subtabBar.classList.add('visible');
+    // Reset sous-onglets
+    document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));
+    document.querySelector('.stab').classList.add('on');
+    showSubTab('articles');
+  } else {
+    subtabBar.classList.remove('visible');
+    document.getElementById('about-wrap').classList.remove('visible');
+    document.getElementById('main').style.display = 'block';
+  }
+
   renderChips();render();
+}
+
+function setSubTab(tab, btn){
+  subTab = tab;
+  document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));
+  btn.classList.add('on');
+  showSubTab(tab);
+}
+
+function showSubTab(tab){
+  const mainEl  = document.getElementById('main');
+  const aboutEl = document.getElementById('about-wrap');
+  if(tab === 'about'){
+    mainEl.style.display  = 'none';
+    aboutEl.classList.add('visible');
+    loadAbout();
+  } else {
+    mainEl.style.display  = 'block';
+    aboutEl.classList.remove('visible');
+  }
+}
+
+async function loadAbout(){
+  const box = document.getElementById('about-content');
+  try {
+    const r = await fetch(BACKEND_ABOUT);
+    const d = await r.json();
+    if(!d.available || !d.text){
+      box.innerHTML = '<div class="state"><div class="state-ico">✍️</div><h3>À propos</h3><p>Contenu à venir — configurez cette page depuis l'espace admin.</p></div>';
+      return;
+    }
+    const img = d.image_url
+      ? `<img class="about-img" src="${d.image_url}" alt="Gabon Phare" onerror="this.style.display='none'">`
+      : '';
+    box.innerHTML = `${img}<div class="about-text">${d.text.replace(/\n/g,'<br>')}</div>`;
+  } catch(e){
+    box.innerHTML = '<div class="state"><p>Impossible de charger le contenu.</p></div>';
+  }
 }
 
 function renderChips(){
