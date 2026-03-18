@@ -539,6 +539,84 @@ body {
 }
 
 /* ════════════════════════════════════
+   CARTE ÉDITORIALE — Gabon Phare
+════════════════════════════════════ */
+.card.editorial {
+  border:none;
+  border-left: 4px solid var(--or);
+  background: linear-gradient(135deg, var(--ivoire), #fdf8ee);
+  box-shadow: 0 4px 20px rgba(14,34,24,0.08);
+}
+
+.card-editorial-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+
+.editorial-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--foret);
+  color: var(--or2);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.editorial-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.card-editorial-img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  margin: 12px 0 0;
+  display: block;
+}
+
+.card-editorial-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--foret);
+  padding: 14px 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.card-editorial-content {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #2a2a2a;
+  padding: 12px 16px;
+  white-space: pre-line;
+}
+
+.card-editorial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 14px;
+  border-top: 1px solid rgba(201,150,58,0.2);
+}
+
+.editorial-cat {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(201,150,58,0.1);
+  color: var(--or);
+}
+
+/* ════════════════════════════════════
    RÉCAP HEBDOMADAIRE — style éditorial
 ════════════════════════════════════ */
 .recap-section {
@@ -788,7 +866,7 @@ const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à me
 const PER_PAGE = 10;
 
 let view='gabon', src='all', page=1, busy=false;
-let data={gabon:[],international:[],all:[]};
+let data={gabon:[],international:[],editorial:[],all:[]};
 
 const GSRC=[
   {id:'gabonmediatime',label:'Gabon Media Time'},
@@ -832,10 +910,11 @@ async function fetchData(manual=false){
     const r=await fetch(BACKEND);
     if(!r.ok)throw new Error('HTTP '+r.status);
     const json=await r.json();
-    data.gabon        =json.articles.filter(a=>a.source_type==='gabon');
+    data.gabon        =json.articles.filter(a=>a.source_type==='gabon' && !a.manual && a.source_id!=='gabon_phare_editorial');
     data.international=json.articles.filter(a=>a.source_type==='international');
+    data.editorial    =json.articles.filter(a=>a.manual===true || a.source_id==='gabon_phare_editorial');
     data.all          =json.articles;
-    document.getElementById('cnt-g').textContent=data.gabon.length;
+    document.getElementById('cnt-g').textContent=data.gabon.length + data.editorial.length;
     document.getElementById('cnt-i').textContent=data.international.length;
     prog(100);
     if(manual)toast('✓ '+data.all.length+' articles chargés');
@@ -893,7 +972,7 @@ function render(){
   const main=document.getElementById('main');
   let arts;
   if(view==='editorial'){
-    arts=data.all.filter(a=>a.source_id==='gabon_phare_editorial'||a.manual===true);
+    arts=data.editorial||[];
   } else {
     arts=view==='all'?data.all:(data[view]||[]);
   }
@@ -938,11 +1017,39 @@ function secBlock(t,lbl,arts){
     ${arts.map((a,i)=>cardHtml(a,i)).join('')}`;
 }
 
+function cardEditorial(a,i){
+  const delay = i*0.05;
+  const img = a.image_url
+    ? `<img class="card-editorial-img" src="${a.image_url}" alt="${a.title}" onerror="this.style.display='none'">`
+    : '';
+  const date = a.time_ago || 'À l\'instant';
+  const cat  = a.category || 'Éditorial';
+  // Affiche le contenu complet (pas juste le résumé)
+  const body = a.content || a.ai_summary || '';
+
+  return `
+  <div class="card editorial" style="animation-delay:${delay}s">
+    <div class="card-editorial-header">
+      <span class="editorial-badge">✍ Gabon Phare</span>
+      <span class="editorial-date">${date}</span>
+    </div>
+    ${img}
+    <div class="card-editorial-title">${a.title}</div>
+    <div class="card-editorial-content">${body}</div>
+    <div class="card-editorial-footer">
+      <span class="editorial-cat">${cat}</span>
+    </div>
+  </div>`;
+}
+
 function cardHtml(a,i){
+  // Article éditorial Gabon Phare — affichage spécial
+  if(a.manual || a.source_id==='gabon_phare_editorial'){
+    return cardEditorial(a,i);
+  }
   const isI=a.source_type==='international';
   const t=isI?'i':'g';
   const url=(a.url||'#').replace(/'/g,'%27');
-  // Nettoie le résumé des préfixes résiduels côté client aussi
   let sum=a.ai_summary||'—';
   ['Résumé :','Résumé:','# Résumé','**Résumé**'].forEach(p=>{
     if(sum.startsWith(p))sum=sum.slice(p.length).trim();
