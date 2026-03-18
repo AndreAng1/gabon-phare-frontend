@@ -718,11 +718,13 @@ async function handleFileSelect(input) {
     }
 
     const data = await resp.json();
-    imgHidden.value      = data.url;
-    imgPrev.src          = data.url;
+    // Store URL in hidden field AND in a data attribute for reliability
+    imgHidden.value = data.url;
+    imgHidden.dataset.uploadedUrl = data.url;
+    imgPrev.src = data.url;
     imgPrev.style.display = 'block';
-    progress.textContent  = '✅ Image uploadée avec succès !';
-    progress.style.color  = 'var(--success)';
+    progress.innerHTML = '✅ Image uploadée ! <small style="color:var(--muted);word-break:break-all;">' + data.url + '</small>';
+    progress.style.color = 'var(--success)';
 
   } catch(e) {
     progress.textContent = '❌ ' + e.message;
@@ -746,7 +748,8 @@ function prevImg(url) {
 async function publishArticle() {
   const title   = document.getElementById('a-title').value.trim();
   const content = document.getElementById('a-content').value.trim();
-  const image   = document.getElementById('a-img').value.trim();
+  const imgEl   = document.getElementById('a-img');
+  const image   = (imgEl.dataset.uploadedUrl || imgEl.value || '').trim();
   const cat     = document.getElementById('a-cat').value;
   const fb      = document.getElementById('a-fb').checked;
   const btn     = document.getElementById('pub-btn');
