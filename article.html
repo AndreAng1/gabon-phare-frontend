@@ -445,9 +445,9 @@ body {
 
   <!-- Contenu dynamique -->
   <div id="content">
-    <div class="loading">
+    <div class="loading" id="loading-div">
       <div class="spinner-large"></div>
-      <p style="color:var(--muted);font-size:14px;">Chargement de l'article...</p>
+      <p style="color:var(--muted);font-size:14px;" id="loading-msg">Chargement de l'article...</p>
     </div>
   </div>
 
@@ -714,14 +714,24 @@ const ISRC=[
   {id:'brut_afrique',    label:'Brut'},
 ];
 
-document.getElementById('cur-date').textContent=
-  new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+// date non nécessaire sur cette page
 
 function prog(p){
   const b=document.getElementById('prog');
   b.style.width=p+'%';
   b.style.opacity=(p>0&&p<100)?'1':'0';
 }
+
+// Message si le serveur tarde à répondre (réveil Render)
+setTimeout(() => {
+  const msg = document.getElementById('loading-msg');
+  if (msg) msg.textContent = 'Le serveur se réveille, encore quelques secondes...';
+}, 4000);
+
+setTimeout(() => {
+  const msg = document.getElementById('loading-msg');
+  if (msg) msg.textContent = 'Presque prêt...';
+}, 10000);
 
 loadArticle();
 </script>
