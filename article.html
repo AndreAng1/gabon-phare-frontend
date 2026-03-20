@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabon Phare — Article</title>
+
+<!-- SEO dynamique mis à jour par JS -->
+<meta name="description" id="meta-desc" content="Résumé de l'actualité gabonaise par Gabon Phare">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Gabon Phare">
+<meta property="og:url" id="og-url" content="https://gabonphare.com">
+<meta property="og:title" id="og-title" content="Gabon Phare">
+<meta property="og:description" id="og-desc" content="Résumé de l'actualité gabonaise">
+<meta property="og:image" id="og-image" content="https://gabonphare.com/og-image.png">
+<meta name="google-site-verification" content="E_ihIxW29XK8bT54FQAlUOys2wbjESbUD17mg-n6LGM">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --foret:   #0e2218;
+  --foret2:  #163322;
+  --foret3:  #1f4530;
+  --or:      #c9963a;
+  --or2:     #e8b84b;
+  --or-pale: #f5dfa0;
+  --sable:   #f4ede0;
+  --sable2:  #ede3d0;
+  --ivoire:  #faf7f1;
+  --encre:   #1a1a1a;
+  --muted:   #6b7a6e;
+  --vert:    #009A44;
+  --jaune:   #FCD116;
+  --bleu:    #003893;
+  --intl:    #1e3f6e;
+  --intl2:   #2d5c9e;
+  --white:   #ffffff;
+  --r:       10px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sable);
+  color: var(--encre);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--foret);
+  border-bottom: 4px solid var(--or);
+}
+.flag-top {
+  height: 5px;
+  background: linear-gradient(to right,
+    var(--vert) 0%, var(--vert) 33.33%,
+    var(--jaune) 33.33%, var(--jaune) 66.66%,
+    var(--bleu) 66.66%, var(--bleu) 100%
+  );
+}
+.header-inner {
+  max-width: 780px; margin: 0 auto;
+  padding: 14px 20px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 900;
+  color: var(--ivoire); text-decoration: none;
+  letter-spacing: -1px;
+}
+.logo span { color: var(--or2); }
+
+.btn-home {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+.btn-home:hover { color: var(--or2); border-color: var(--or); }
+
+/* ── CONTENU ── */
+.main {
+  max-width: 780px; margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 8px;
+}
+.breadcrumb a { color: var(--or); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* Card article */
+.article-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--sable2);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(14,34,24,0.08);
+}
+.article-card.intl { border-color: #d8e7f7; }
+
+.article-stripe {
+  height: 5px;
+  background: linear-gradient(to right, var(--foret3), var(--or));
+}
+.article-card.intl .article-stripe {
+  background: linear-gradient(to right, var(--intl), var(--intl2));
+}
+
+/* Image */
+.article-img {
+  width: 100%; max-height: 380px;
+  object-fit: cover; display: block;
+}
+
+/* Body */
+.article-body { padding: 28px 32px 24px; }
+
+/* Meta */
+.article-meta {
+  display: flex; align-items: center;
+  gap: 10px; margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.source-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 3px;
+  background: var(--foret); color: var(--or2);
+}
+.source-badge.intl {
+  background: var(--intl2); color: white;
+}
+.source-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.article-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #ccc;
+  margin-left: auto;
+}
+.article-cat {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: var(--sable2); color: var(--muted);
+}
+
+/* Titre */
+.article-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--foret);
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+.article-card.intl .article-title { color: var(--intl); }
+
+/* Résumé */
+.summary-block {
+  background: linear-gradient(135deg, #fdf9f0, #f9f3e4);
+  border-left: 4px solid var(--or);
+  border-radius: 0 6px 6px 0;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+}
+.article-card.intl .summary-block {
+  background: linear-gradient(135deg, #f0f5fc, #e8f0fa);
+  border-left-color: var(--intl2);
+}
+.summary-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.article-card.intl .summary-label { color: var(--intl2); }
+.summary-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+}
+.summary-text {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #2a2a2a;
+}
+
+/* Bouton lire */
+.read-btn {
+  display: flex; align-items: center;
+  justify-content: center; gap: 10px;
+  width: 100%; padding: 16px 24px;
+  background: var(--foret);
+  color: var(--or2);
+  border: none; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-bottom: 16px;
+}
+.read-btn:hover { background: var(--foret3); transform: translateY(-1px); }
+.article-card.intl .read-btn { background: var(--intl2); color: white; }
+.article-card.intl .read-btn:hover { background: var(--intl); }
+
+.read-btn-sub {
+  font-size: 11px; color: var(--muted);
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Footer source */
+.article-footer {
+  padding: 16px 32px;
+  border-top: 1px solid var(--sable2);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.article-card.intl .article-footer { border-top-color: #e4edf7; }
+
+.footer-source {
+  font-size: 12px; color: var(--muted);
+}
+.footer-source strong { color: var(--encre); }
+
+.footer-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--or);
+  text-decoration: none; letter-spacing: 0.5px;
+}
+.footer-link:hover { text-decoration: underline; }
+
+/* Bouton retour */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 24px;
+  font-size: 13px; font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-btn:hover { color: var(--or); }
+
+/* États chargement */
+.loading {
+  text-align: center; padding: 80px 20px;
+}
+.spinner-large {
+  width: 40px; height: 40px;
+  border: 3px solid var(--sable2);
+  border-top-color: var(--or);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.not-found {
+  text-align: center; padding: 80px 20px;
+}
+.not-found h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; color: var(--foret);
+  margin-bottom: 12px;
+}
+.not-found p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+/* ── DERNIERS ARTICLES ── */
+.other-articles {
+  margin-top: 40px;
+}
+
+.other-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--foret);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.other-title::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, rgba(201,150,58,0.3), transparent);
+}
+
+.other-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.other-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--sable2);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  display: block;
+}
+.other-card:hover {
+  box-shadow: 0 6px 20px rgba(14,34,24,0.1);
+  transform: translateY(-2px);
+}
+
+.other-card-stripe {
+  height: 3px;
+  background: linear-gradient(to right, var(--foret3), var(--or));
+}
+.other-card.intl .other-card-stripe {
+  background: linear-gradient(to right, var(--intl), var(--intl2));
+}
+
+.other-card-body { padding: 14px; }
+
+.other-card-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.other-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--foret);
+  line-height: 1.3;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.other-card.intl .other-card-title { color: var(--intl); }
+
+.other-card-sum {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.other-card-footer {
+  padding: 8px 14px;
+  border-top: 1px solid var(--sable2);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--or);
+  letter-spacing: 0.5px;
+}
+
+@media(max-width: 540px) {
+  .other-grid { grid-template-columns: 1fr; }
+}
+
+/* Footer page */
+.page-footer {
+  background: var(--foret);
+  border-top: 3px solid var(--or);
+  padding: 20px;
+  text-align: center;
+}
+.page-footer a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--ivoire); text-decoration: none;
+}
+.page-footer a span { color: var(--or2); }
+.page-footer p {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,150,58,0.4);
+  margin-top: 4px;
+}
+
+/* Bande drapeau bas */
+.flag-bottom {
+  height: 4px;
+  background: linear-gradient(to right,
+    var(--vert) 0%, var(--vert) 33.33%,
+    var(--jaune) 33.33%, var(--jaune) 66.66%,
+    var(--bleu) 66.66%, var(--bleu) 100%
+  );
+}
+
+@media(max-width: 540px) {
+  .main { padding: 20px 14px 60px; }
+  .article-body { padding: 20px 18px 18px; }
+  .article-footer { padding: 14px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="flag-top"></div>
+  <div class="header-inner">
+    <a href="https://gabonphare.com" class="logo">Gabon <span>Phare</span></a>
+    <a href="https://gabonphare.com" class="btn-home">← Accueil</a>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="https://gabonphare.com">Gabon Phare</a>
+    <span>›</span>
+    <span id="breadcrumb-cat">Article</span>
+  </div>
+
+  <!-- Contenu dynamique -->
+  <div id="content">
+    <div class="loading">
+      <div class="spinner-large"></div>
+      <p style="color:var(--muted);font-size:14px;">Chargement de l'article...</p>
+    </div>
+  </div>
+
+  <!-- Bouton retour -->
+  <a href="https://gabonphare.com" class="back-btn" id="back-btn" style="display:none">
+    ← Retour aux articles
+  </a>
+
+  <!-- Derniers articles -->
+  <div class="other-articles" id="other-articles" style="display:none">
+    <div class="other-title">Derniers articles</div>
+    <div class="other-grid" id="other-grid"></div>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  <a href="https://gabonphare.com">Gabon <span>Phare</span></a>
+  <p>L'actualité gabonaise en lumière</p>
+</footer>
+<div class="flag-bottom"></div>
+
+<script>
+const BACKEND      = 'https://capitalk241-backend.onrender.com';
+const BACKEND_NEWS = 'https://capitalk241-backend.onrender.com/news';
+
+async function loadArticle() {
+  const params = new URLSearchParams(window.location.search);
+  const articleId = params.get('article');
+
+  if (!articleId) {
+    showNotFound();
+    return;
+  }
+
+  try {
+    const r = await fetch(BACKEND + '/article/' + articleId);
+    const d = await r.json();
+
+    if (!d.found) {
+      showNotFound();
+      return;
+    }
+
+    renderArticle(d);
+
+  } catch(e) {
+    document.getElementById('content').innerHTML =
+      '<div class="not-found"><h2>Erreur de chargement</h2><p>Le serveur est momentanément inaccessible.<br>Réessaie dans quelques instants.</p><a href="https://gabonphare.com" class="read-btn" style="max-width:280px;margin:0 auto;">Retour à l\'accueil</a></div>';
+  }
+}
+
+function renderArticle(a) {
+  const isIntl = a.source_type === 'international';
+  const isManual = a.manual;
+
+  // Met à jour les meta SEO
+  document.title = a.title + ' — Gabon Phare';
+  document.getElementById('meta-desc').content = a.summary;
+  document.getElementById('og-title').content = a.title;
+  document.getElementById('og-desc').content = a.summary;
+  document.getElementById('og-url').content = window.location.href;
+  if (a.image_url) {
+    document.getElementById('og-image').content = a.image_url;
+  }
+
+  // Breadcrumb
+  document.getElementById('breadcrumb-cat').textContent = a.category || 'Actualité';
+
+  // Badge source
+  const badgeClass = isIntl ? 'intl' : '';
+  const badgeText  = isManual ? 'Gabon Phare' : (isIntl ? 'International' : 'Gabon');
+
+  // Image
+  let imgHtml = '';
+  if (a.image_url) {
+    imgHtml = '<img class="article-img" src="' + a.image_url + '" alt="' + escHtml(a.title) + '" onerror="this.style.display=\'none\'">';
+  }
+
+  // Résumé à afficher
+  const summaryText = isManual ? a.content : (a.summary || a.content || '');
+
+  // Bouton lire
+  let readBtnHtml = '';
+  if (!isManual) {
+    readBtnHtml = '<a href="' + escHtml(a.url) + '" target="_blank" rel="noopener" class="read-btn">Lire l\'article complet <span style="font-size:18px;">→</span></a><p class="read-btn-sub">Vous allez être redirigé vers ' + escHtml(a.source_name) + '</p>';
+  }
+
+  const html =
+    '<div class="article-card ' + (isIntl ? 'intl' : '') + '">' +
+      '<div class="article-stripe"></div>' +
+      imgHtml +
+      '<div class="article-body">' +
+        '<div class="article-meta">' +
+          '<span class="source-badge ' + badgeClass + '">' + badgeText + '</span>' +
+          '<span class="source-name">' + escHtml(a.source_name) + '</span>' +
+          '<span class="article-cat">' + escHtml(a.category || 'Actualité') + '</span>' +
+          (a.time_ago ? '<span class="article-date">' + escHtml(a.time_ago) + '</span>' : '') +
+        '</div>' +
+        '<h1 class="article-title">' + escHtml(a.title) + '</h1>' +
+        '<div class="summary-block">' +
+          '<div class="summary-label">Résumé Gabon Phare</div>' +
+          '<div class="summary-text">' + escHtml(summaryText) + '</div>' +
+        '</div>' +
+        readBtnHtml +
+      '</div>' +
+      '<div class="article-footer">' +
+        '<span class="footer-source">Source : <strong>' + escHtml(a.source_name) + '</strong></span>' +
+        (!isManual ? '<a href="' + escHtml(a.url) + '" target="_blank" rel="noopener" class="footer-link">Accéder à l\'article original →</a>' : '') +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('content').innerHTML = html;
+  document.getElementById('back-btn').style.display = 'inline-flex';
+
+  // Charge les autres articles
+  loadOtherArticles(a.id);
+}
+
+async function loadOtherArticles(currentId) {
+  try {
+    const r    = await fetch(BACKEND_NEWS);
+    const data = await r.json();
+    const articles = (data.articles || [])
+      .filter(a => {
+        // Exclut l'article courant
+        const h = md5(a.title);
+        return h !== currentId;
+      })
+      .slice(0, 6); // max 6 autres articles
+
+    if (!articles.length) return;
+
+    const grid = document.getElementById('other-grid');
+    grid.innerHTML = articles.map(a => {
+      const h      = md5(a.title);
+      const gpLink = 'https://gabonphare.com/?article=' + h;
+      const isIntl = a.source_type === 'international';
+      let sum = a.ai_summary || '';
+      if (sum.length > 120) sum = sum.substring(0, 120) + '...';
+
+      return '<a href="' + gpLink + '" class="other-card ' + (isIntl ? 'intl' : '') + '">' +
+        '<div class="other-card-stripe"></div>' +
+        '<div class="other-card-body">' +
+          '<div class="other-card-source">' + escHtml(a.source_name) + '</div>' +
+          '<div class="other-card-title">' + escHtml(a.title) + '</div>' +
+          '<div class="other-card-sum">' + escHtml(sum) + '</div>' +
+        '</div>' +
+        '<div class="other-card-footer">Lire le résumé →</div>' +
+        '</a>';
+    }).join('');
+
+    document.getElementById('other-articles').style.display = 'block';
+
+  } catch(e) {
+    console.warn('Autres articles non disponibles:', e.message);
+  }
+}
+
+
+
+function showNotFound() {
+  document.getElementById('content').innerHTML =
+    '<div class="not-found">' +
+    '<h2>Article introuvable</h2>' +
+    '<p>Cet article n\'est plus disponible ou le lien est expiré.<br>Retrouve toute l\'actualité gabonaise sur notre site.</p>' +
+    '<a href="https://gabonphare.com" class="read-btn" style="max-width:280px;margin:0 auto;">Voir tous les articles</a>' +
+    '</div>';
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// MD5 simple pour générer les IDs articles (compatible avec le backend Python)
+function md5(str){
+  function safeAdd(x,y){const lsw=(x&0xFFFF)+(y&0xFFFF);return(((x>>16)+(y>>16)+(lsw>>16))<<16)|(lsw&0xFFFF);}
+  function md5cmn(q,a,b,x,s,t){return safeAdd(bitRotateLeft(safeAdd(safeAdd(a,q),safeAdd(x,t)),s),b);}
+  function md5ff(a,b,c,d,x,s,t){return md5cmn((b&c)|((~b)&d),a,b,x,s,t);}
+  function md5gg(a,b,c,d,x,s,t){return md5cmn((b&d)|(c&(~d)),a,b,x,s,t);}
+  function md5hh(a,b,c,d,x,s,t){return md5cmn(b^c^d,a,b,x,s,t);}
+  function md5ii(a,b,c,d,x,s,t){return md5cmn(c^(b|(~d)),a,b,x,s,t);}
+  function bitRotateLeft(num,cnt){return(num<<cnt)|(num>>>(32-cnt));}
+  function md5blk(s){
+    const md5blks=[];
+    for(let i=0;i<64;i+=4)md5blks[i>>2]=s.charCodeAt(i)+(s.charCodeAt(i+1)<<8)+(s.charCodeAt(i+2)<<16)+(s.charCodeAt(i+3)<<24);
+    return md5blks;
+  }
+  const utf8str=unescape(encodeURIComponent(str));
+  let t,a,b,c,d;
+  let l=utf8str.length;
+  let state=[1732584193,-271733879,-1732584194,271733878];
+  let i;
+  for(i=64;i<=l;i+=64){
+    const blk=md5blk(utf8str.substring(i-64,i));
+    [a,b,c,d]=state;
+    a=md5ff(a,b,c,d,blk[0],7,-680876936);d=md5ff(d,a,b,c,blk[1],12,-389564586);c=md5ff(c,d,a,b,blk[2],17,606105819);b=md5ff(b,c,d,a,blk[3],22,-1044525330);
+    a=md5ff(a,b,c,d,blk[4],7,-176418897);d=md5ff(d,a,b,c,blk[5],12,1200080426);c=md5ff(c,d,a,b,blk[6],17,-1473231341);b=md5ff(b,c,d,a,blk[7],22,-45705983);
+    a=md5ff(a,b,c,d,blk[8],7,1770035416);d=md5ff(d,a,b,c,blk[9],12,-1958414417);c=md5ff(c,d,a,b,blk[10],17,-42063);b=md5ff(b,c,d,a,blk[11],22,-1990404162);
+    a=md5ff(a,b,c,d,blk[12],7,1804603682);d=md5ff(d,a,b,c,blk[13],12,-40341101);c=md5ff(c,d,a,b,blk[14],17,-1502002290);b=md5ff(b,c,d,a,blk[15],22,1236535329);
+    a=md5gg(a,b,c,d,blk[1],5,-165796510);d=md5gg(d,a,b,c,blk[6],9,-1069501632);c=md5gg(c,d,a,b,blk[11],14,643717713);b=md5gg(b,c,d,a,blk[0],20,-373897302);
+    a=md5gg(a,b,c,d,blk[5],5,-701558691);d=md5gg(d,a,b,c,blk[10],9,38016083);c=md5gg(c,d,a,b,blk[15],14,-660478335);b=md5gg(b,c,d,a,blk[4],20,-405537848);
+    a=md5gg(a,b,c,d,blk[9],5,568446438);d=md5gg(d,a,b,c,blk[14],9,-1019803690);c=md5gg(c,d,a,b,blk[3],14,-187363961);b=md5gg(b,c,d,a,blk[8],20,1163531501);
+    a=md5gg(a,b,c,d,blk[13],5,-1444681467);d=md5gg(d,a,b,c,blk[2],9,-51403784);c=md5gg(c,d,a,b,blk[7],14,1735328473);b=md5gg(b,c,d,a,blk[12],20,-1926607734);
+    a=md5hh(a,b,c,d,blk[5],4,-378558);d=md5hh(d,a,b,c,blk[8],11,-2022574463);c=md5hh(c,d,a,b,blk[11],16,1839030562);b=md5hh(b,c,d,a,blk[14],23,-35309556);
+    a=md5hh(a,b,c,d,blk[1],4,-1530992060);d=md5hh(d,a,b,c,blk[4],11,1272893353);c=md5hh(c,d,a,b,blk[7],16,-155497632);b=md5hh(b,c,d,a,blk[10],23,-1094730640);
+    a=md5hh(a,b,c,d,blk[13],4,681279174);d=md5hh(d,a,b,c,blk[0],11,-358537222);c=md5hh(c,d,a,b,blk[3],16,-722521979);b=md5hh(b,c,d,a,blk[6],23,76029189);
+    a=md5hh(a,b,c,d,blk[9],4,-640364487);d=md5hh(d,a,b,c,blk[12],11,-421815835);c=md5hh(c,d,a,b,blk[15],16,530742520);b=md5hh(b,c,d,a,blk[2],23,-995338651);
+    a=md5ii(a,b,c,d,blk[0],6,-198630844);d=md5ii(d,a,b,c,blk[7],10,1126891415);c=md5ii(c,d,a,b,blk[14],15,-1416354905);b=md5ii(b,c,d,a,blk[5],21,-57434055);
+    a=md5ii(a,b,c,d,blk[12],6,1700485571);d=md5ii(d,a,b,c,blk[3],10,-1894986606);c=md5ii(c,d,a,b,blk[10],15,-1051523);b=md5ii(b,c,d,a,blk[1],21,-2054922799);
+    a=md5ii(a,b,c,d,blk[8],6,1873313359);d=md5ii(d,a,b,c,blk[15],10,-30611744);c=md5ii(c,d,a,b,blk[6],15,-1560198380);b=md5ii(b,c,d,a,blk[13],21,1309151649);
+    a=md5ii(a,b,c,d,blk[4],6,-145523070);d=md5ii(d,a,b,c,blk[11],10,-1120210379);c=md5ii(c,d,a,b,blk[2],15,718787259);b=md5ii(b,c,d,a,blk[9],21,-343485551);
+    state[0]=safeAdd(a,state[0]);state[1]=safeAdd(b,state[1]);state[2]=safeAdd(c,state[2]);state[3]=safeAdd(d,state[3]);
+  }
+  const tail=utf8str.substring(i-64);
+  const length8=l*8;
+  const blk=md5blk(tail+String.fromCharCode(128)+new Array(65-((length8/32+2)%16)*4-tail.length%64).join(String.fromCharCode(0)));
+  blk[(((length8/32+2)%16)+14)]=length8&0xFFFFFFFF;blk[(((length8/32+2)%16)+15)]=Math.floor(length8/4294967296);
+  [a,b,c,d]=state;
+  a=md5ff(a,b,c,d,blk[0],7,-680876936);d=md5ff(d,a,b,c,blk[1],12,-389564586);c=md5ff(c,d,a,b,blk[2],17,606105819);b=md5ff(b,c,d,a,blk[3],22,-1044525330);
+  a=md5ff(a,b,c,d,blk[4],7,-176418897);d=md5ff(d,a,b,c,blk[5],12,1200080426);c=md5ff(c,d,a,b,blk[6],17,-1473231341);b=md5ff(b,c,d,a,blk[7],22,-45705983);
+  a=md5ff(a,b,c,d,blk[8],7,1770035416);d=md5ff(d,a,b,c,blk[9],12,-1958414417);c=md5ff(c,d,a,b,blk[10],17,-42063);b=md5ff(b,c,d,a,blk[11],22,-1990404162);
+  a=md5ff(a,b,c,d,blk[12],7,1804603682);d=md5ff(d,a,b,c,blk[13],12,-40341101);c=md5ff(c,d,a,b,blk[14],17,-1502002290);b=md5ff(b,c,d,a,blk[15],22,1236535329);
+  a=md5gg(a,b,c,d,blk[1],5,-165796510);d=md5gg(d,a,b,c,blk[6],9,-1069501632);c=md5gg(c,d,a,b,blk[11],14,643717713);b=md5gg(b,c,d,a,blk[0],20,-373897302);
+  a=md5gg(a,b,c,d,blk[5],5,-701558691);d=md5gg(d,a,b,c,blk[10],9,38016083);c=md5gg(c,d,a,b,blk[15],14,-660478335);b=md5gg(b,c,d,a,blk[4],20,-405537848);
+  a=md5gg(a,b,c,d,blk[9],5,568446438);d=md5gg(d,a,b,c,blk[14],9,-1019803690);c=md5gg(c,d,a,b,blk[3],14,-187363961);b=md5gg(b,c,d,a,blk[8],20,1163531501);
+  a=md5gg(a,b,c,d,blk[13],5,-1444681467);d=md5gg(d,a,b,c,blk[2],9,-51403784);c=md5gg(c,d,a,b,blk[7],14,1735328473);b=md5gg(b,c,d,a,blk[12],20,-1926607734);
+  a=md5hh(a,b,c,d,blk[5],4,-378558);d=md5hh(d,a,b,c,blk[8],11,-2022574463);c=md5hh(c,d,a,b,blk[11],16,1839030562);b=md5hh(b,c,d,a,blk[14],23,-35309556);
+  a=md5hh(a,b,c,d,blk[1],4,-1530992060);d=md5hh(d,a,b,c,blk[4],11,1272893353);c=md5hh(c,d,a,b,blk[7],16,-155497632);b=md5hh(b,c,d,a,blk[10],23,-1094730640);
+  a=md5hh(a,b,c,d,blk[13],4,681279174);d=md5hh(d,a,b,c,blk[0],11,-358537222);c=md5hh(c,d,a,b,blk[3],16,-722521979);b=md5hh(b,c,d,a,blk[6],23,76029189);
+  a=md5hh(a,b,c,d,blk[9],4,-640364487);d=md5hh(d,a,b,c,blk[12],11,-421815835);c=md5hh(c,d,a,b,blk[15],16,530742520);b=md5hh(b,c,d,a,blk[2],23,-995338651);
+  a=md5ii(a,b,c,d,blk[0],6,-198630844);d=md5ii(d,a,b,c,blk[7],10,1126891415);c=md5ii(c,d,a,b,blk[14],15,-1416354905);b=md5ii(b,c,d,a,blk[5],21,-57434055);
+  a=md5ii(a,b,c,d,blk[12],6,1700485571);d=md5ii(d,a,b,c,blk[3],10,-1894986606);c=md5ii(c,d,a,b,blk[10],15,-1051523);b=md5ii(b,c,d,a,blk[1],21,-2054922799);
+  a=md5ii(a,b,c,d,blk[8],6,1873313359);d=md5ii(d,a,b,c,blk[15],10,-30611744);c=md5ii(c,d,a,b,blk[6],15,-1560198380);b=md5ii(b,c,d,a,blk[13],21,1309151649);
+  a=md5ii(a,b,c,d,blk[4],6,-145523070);d=md5ii(d,a,b,c,blk[11],10,-1120210379);c=md5ii(c,d,a,b,blk[2],15,718787259);b=md5ii(b,c,d,a,blk[9],21,-343485551);
+  state[0]=safeAdd(a,state[0]);state[1]=safeAdd(b,state[1]);state[2]=safeAdd(c,state[2]);state[3]=safeAdd(d,state[3]);
+  const hex=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
+  let output='';
+  for(let j=0;j<4;j++){const w=state[j];output+=hex[(w)&0xF]+hex[(w>>4)&0xF]+hex[(w>>8)&0xF]+hex[(w>>12)&0xF]+hex[(w>>16)&0xF]+hex[(w>>20)&0xF]+hex[(w>>24)&0xF]+hex[(w>>28)&0xF];}
+  return output;
+}
+const BACKEND_ABOUT = 'https://capitalk241-backend.onrender.com/about';
+const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à mettre à jour si Render change
+const PER_PAGE = 10;
+
+let view='gabon', src='all', page=1, busy=false;
+let data={gabon:[],international:[],editorial:[],all:[]};
+
+const GSRC=[
+  {id:'gabonmediatime',label:'Gabon Media Time'},
+  {id:'gabonreview',   label:'Gabon Review'},
+  {id:'gabonactu',     label:'Gabon Actu'},
+];
+const ISRC=[
+  {id:'rfi',             label:'RFI'},
+  {id:'france24',        label:'France 24'},
+  {id:'jeuneafrique',    label:'Jeune Afrique'},
+  {id:'bbc_afrique',     label:'BBC Afrique'},
+  {id:'lemonde_afrique', label:'Le Monde'},
+  {id:'brut_afrique',    label:'Brut'},
+];
+
+document.getElementById('cur-date').textContent=
+  new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+
+function prog(p){
+  const b=document.getElementById('prog');
+  b.style.width=p+'%';
+  b.style.opacity=(p>0&&p<100)?'1':'0';
+}
+
+loadArticle();
+</script>
+</body>
+</html>
