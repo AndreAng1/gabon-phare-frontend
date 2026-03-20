@@ -1304,12 +1304,12 @@ function cardHtml(a,i){
   cat.className='ccat';
   cat.textContent=a.category||'Actualité';
   foot.appendChild(cat);
-  const btn=document.createElement('button');
-  btn.className='cread '+t;
-  const gpLink = articleUrl(a.title);
-  btn.textContent='Lire le résumé →';
-  btn.addEventListener('click',()=>window.location.href=gpLink);
-  foot.appendChild(btn);
+  const lnk=document.createElement('a');
+  lnk.className='cread '+t;
+  lnk.href=articleUrl(a.title);
+  lnk.textContent='Lire le résumé →';
+  lnk.style.cssText='text-decoration:none;';
+  foot.appendChild(lnk);
   div.appendChild(foot);
 
   return div.outerHTML;
