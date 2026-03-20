@@ -476,7 +476,7 @@ const BACKEND_NEWS = 'https://capitalk241-backend.onrender.com/news';
 
 async function loadArticle() {
   const params = new URLSearchParams(window.location.search);
-  const articleId = params.get('article');
+  const articleId = params.get('t') || params.get('article');
 
   if (!articleId) {
     showNotFound();
@@ -484,7 +484,7 @@ async function loadArticle() {
   }
 
   try {
-    const r = await fetch(BACKEND + '/article/' + articleId);
+    const r = await fetch(BACKEND + '/article?t=' + encodeURIComponent(articleId));
     const d = await r.json();
 
     if (!d.found) {
@@ -574,8 +574,7 @@ async function loadOtherArticles(currentId) {
     const articles = (data.articles || [])
       .filter(a => {
         // Exclut l'article courant
-        const h = md5(a.title);
-        return h !== currentId;
+        return a.title !== articleId;
       })
       .slice(0, 6); // max 6 autres articles
 
@@ -584,7 +583,7 @@ async function loadOtherArticles(currentId) {
     const grid = document.getElementById('other-grid');
     grid.innerHTML = articles.map(a => {
       const h      = md5(a.title);
-      const gpLink = 'https://gabonphare.com/?article=' + h;
+      const gpLink = 'https://gabonphare.com/article.html?t=' + encodeURIComponent(a.title);
       const isIntl = a.source_type === 'international';
       let sum = a.ai_summary || '';
       if (sum.length > 120) sum = sum.substring(0, 120) + '...';
