@@ -928,7 +928,7 @@ async function loadSettings(){
   try {
     const r = await req('GET', '/admin/settings');
     document.getElementById('set-fb-today').textContent = r.fb_posts_today + '/' + r.fb_daily_limit;
-    document.getElementById('set-fb-rem').textContent = r.fb_posts_remaining + ' publications restantes aujourd'hui';
+    document.getElementById('set-fb-rem').textContent = r.fb_posts_remaining + ' publications restantes';
     document.getElementById('set-fb-limit').value = r.fb_daily_limit;
     document.getElementById('set-fb-current').textContent = r.fb_daily_limit;
     document.getElementById('set-interval').value = r.scraping_interval_hours || 3;
