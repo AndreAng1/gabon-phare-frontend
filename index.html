@@ -803,6 +803,152 @@ body {
 }
 
 /* ════════════════════════════════════
+   DIGEST — Le Phare du Matin / du Soir
+════════════════════════════════════ */
+.digest-section {
+  margin-bottom: 24px;
+}
+
+.digest-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.digest-header-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ivoire);
+  letter-spacing: -0.3px;
+  flex: 1;
+}
+
+.digest-header-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--or);
+  background: rgba(201,150,58,0.1);
+  border: 1px solid rgba(201,150,58,0.25);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.digest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media(max-width: 620px) {
+  .digest-grid { grid-template-columns: 1fr; }
+}
+
+.digest-card {
+  background: var(--foret);
+  border-radius: var(--r);
+  border: 1px solid var(--foret3);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(6,26,14,0.15);
+}
+
+.digest-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  background: linear-gradient(135deg, var(--foret2), var(--foret));
+  border-bottom: 2px solid var(--or);
+}
+
+.digest-card-emoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.digest-card-period {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ivoire);
+  flex: 1;
+  letter-spacing: -0.2px;
+}
+
+.digest-card-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.digest-card-body {
+  padding: 16px 18px 18px;
+}
+
+.digest-card-content {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.78);
+  white-space: pre-line;
+  font-weight: 300;
+}
+
+.digest-card-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.digest-card-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(201,150,58,0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.digest-fb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(24,119,242,0.15);
+  border: 1px solid rgba(24,119,242,0.25);
+  color: rgba(122,172,238,0.8);
+  font-size: 9px;
+  font-family: 'DM Mono', monospace;
+  padding: 3px 9px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.15s;
+}
+.digest-fb-link:hover { background: rgba(24,119,242,0.25); }
+
+.digest-placeholder {
+  padding: 28px 18px;
+  text-align: center;
+}
+
+.digest-placeholder p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════ */
 @media(max-width:520px){
@@ -924,6 +1070,18 @@ body {
 </div>
 
 <!-- ══ CONTENU ══════════════════════════════════════ -->
+<div class="main" id="digest-wrap" style="display:none; padding-bottom:0;">
+  <div class="digest-section">
+    <div class="digest-header-bar">
+      <span class="digest-header-title">Le Phare du Matin · du Soir</span>
+      <span class="digest-header-label">Digest quotidien</span>
+    </div>
+    <div class="digest-grid" id="digest-grid">
+      <!-- rempli par JS -->
+    </div>
+  </div>
+</div>
+
 <div class="main" id="recap-wrap" style="display:none; padding-bottom:0;">
   <div class="recap-section" id="recap-section">
     <div class="recap-header" onclick="toggleRecap()">
@@ -967,7 +1125,8 @@ function articleUrl(title) {
   return 'https://gabonphare.com/article.html?t=' + encodeURIComponent(title);
 }
 const BACKEND_ABOUT = 'https://capitalk241-backend.onrender.com/about';
-const BACKEND_RECAP = 'https://capitalk241-backend.onrender.com/recap'; // à mettre à jour si Render change
+const BACKEND_RECAP   = 'https://capitalk241-backend.onrender.com/recap';
+const BACKEND_DIGEST  = 'https://capitalk241-backend.onrender.com/digest/latest';
 const PER_PAGE = 10;
 
 let view='gabon', src='all', page=1, busy=false;
@@ -1156,6 +1315,87 @@ async function fetchRecap() {
   }
 }
 
+async function fetchDigest() {
+  try {
+    const r    = await fetch(BACKEND_DIGEST);
+    const json = await r.json();
+
+    const wrap = document.getElementById('digest-wrap');
+    const grid = document.getElementById('digest-grid');
+
+    if (!json.available || !json.digests || json.digests.length === 0) {
+      // Pas encore de digest publié — afficher un placeholder
+      wrap.style.display = 'block';
+      grid.innerHTML = `
+        <div class="digest-card" style="grid-column:1/-1;">
+          <div class="digest-card-header">
+            <span class="digest-card-emoji">☀️</span>
+            <span class="digest-card-period">Le Phare du Matin · du Soir</span>
+          </div>
+          <div class="digest-placeholder">
+            <p>Le premier digest sera publié aujourd'hui à 7h30 et 19h00.<br>Retrouvez-le ici et sur notre page Facebook.</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    wrap.style.display = 'block';
+    grid.innerHTML = '';
+
+    json.digests.forEach(d => {
+      const isMatin  = d.period === 'matin';
+      const emoji    = isMatin ? '☀️' : '🌙';
+      const label    = isMatin ? 'Phare du Matin' : 'Phare du Soir';
+      const heure    = isMatin ? '7h30' : '19h00';
+
+      let dateStr = '';
+      if (d.published_at) {
+        const dt = new Date(d.published_at);
+        dateStr  = dt.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'}).toUpperCase();
+      }
+
+      // Lien Facebook vers le post
+      const fbPostId = d.post_id || '';
+      // post_id format: pageId_postId → lien direct possible
+      const fbLink = fbPostId
+        ? `https://www.facebook.com/${fbPostId.replace('_','/')}`
+        : 'https://www.facebook.com/gabonphare';
+
+      // Nettoie le contenu (retire la première ligne titre + ligne vide si présente)
+      const lines   = (d.content || '').split('\n');
+      // La première ligne est le titre "☀️ LE PHARE DU MATIN – …", on la garde
+      const content = lines.join('\n');
+
+      const card = document.createElement('div');
+      card.className = 'digest-card';
+      card.innerHTML = `
+        <div class="digest-card-header">
+          <span class="digest-card-emoji">${emoji}</span>
+          <span class="digest-card-period">${label}</span>
+          <span class="digest-card-time">${heure}</span>
+        </div>
+        <div class="digest-card-body">
+          <div class="digest-card-content">${escHtml(content)}</div>
+          <div class="digest-card-footer">
+            <span class="digest-card-date">${dateStr}</span>
+            <a class="digest-fb-link" href="${fbLink}" target="_blank" rel="noopener">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Voir sur Facebook
+            </a>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+  } catch(e) {
+    console.warn('Digest non disponible:', e.message);
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 function toggleRecap() {
   const body    = document.getElementById('recap-body');
   const toggle  = document.getElementById('recap-toggle');
@@ -1337,9 +1577,11 @@ function goPage(p){page=p;render();}
 
 setInterval(()=>fetchData(false),60*60*1000);
 setInterval(()=>fetchRecap(),60*60*1000);
+setInterval(()=>fetchDigest(),30*60*1000);
 renderChips();
 fetchData(false);
 fetchRecap();
+fetchDigest();
 
 </script>
 </body>
